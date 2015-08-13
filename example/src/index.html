@@ -1,16 +1,26 @@
 <!doctype html>
 <head>
   <title>Notification Center</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="example.css">
 </head>
 <body>
+  <div class="container __shadowed">
+    <div class="line statusbar">
+      <div id='notification-center' class="statusbar--messages"></div>
+      <div id='notification-counter' class="statusbar--counter"></div>
+    </div>
+  </div>
   <div class="container">
-    <h1>Notification Center</h1>
-    <h2><a href="https://github.com/maximkoretskiy/react-notification-center">View project on GitHub</a></h2>
-    <!-- the example app is rendered into this div -->
-    <div id="app"></div>
-    <div class="hint">
-      <!-- put any hints about your component example here -->
+    <div class="line">
+      <h1>Notification Center</h1>
+      <h2><a href="https://github.com/maximkoretskiy/react-notification-center">View project on GitHub</a></h2>
+      <!-- the example app is rendered into this div -->
+      <div id="app"></div>
+      <div class="hint">
+        <!-- put any hints about your component example here -->
+      </div>
+      
     </div>
     <div class="footer">
       Copyright &copy; 2015 Maksim Koretskiy.

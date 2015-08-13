@@ -32,10 +32,17 @@ var NotificationCenter = React.createClass({
     notificationStore.removeListener('update', this.forceUpdate);
   },
   render () {
-    return <div>Notification Center</div>;
+    return <div className='notification'>
+      <i className='notification--left fa fa-check-circle-o fa-3x'/>
+      <div className='notification--content'> Notification Center </div>
+      <div className='notification--right fa fa-times-circle-o fa-3x'></div>
+    </div>;
   }
 });
 var NotificationCounter = React.createClass({
+  propTypes: {
+    iconClass: React.PropTypes.string
+  },
   getInitialState(){
     return notificationStore.getState();
   },
@@ -46,8 +53,12 @@ var NotificationCounter = React.createClass({
     notificationStore.removeListener('update', this.forceUpdate);
   },
   render () {
+    var iconClass = 'notification-counter--icon ';
+    if(this.props.iconClass){
+      iconClass += this.props.iconClass
+    }
     return <div className='notification-counter'>
-      <div className='notification-counter--icon'></div>
+      <i className={iconClass}></i>
       <div className='notification-counter--value'>{this.state.messages.length}</div>
     </div>;
   }

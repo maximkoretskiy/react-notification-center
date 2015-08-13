@@ -67,13 +67,7 @@ var App = React.createClass({
   render () {
     return (
       <div className='line' >
-        <div>
-          <div className='line'>
-            <NotificationCenter/>
-            <NotificationCounter/>
-          </div>
-          <TestForm onSubmit={this.onSubmitForm} />
-        </div>
+        <TestForm onSubmit={this.onSubmitForm} />
         <DebugView data={this.state} />
       </div>
     );
@@ -81,3 +75,5 @@ var App = React.createClass({
 });
 
 React.render(<App />, document.getElementById('app'));
+React.render(<NotificationCenter />, document.getElementById('notification-center'));
+React.render(<NotificationCounter iconClass='fa fa-bell-o fa-lg' />, document.getElementById('notification-counter'));
