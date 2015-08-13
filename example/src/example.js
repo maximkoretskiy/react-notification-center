@@ -11,8 +11,8 @@ var TestForm = React.createClass({
     };
   },
   onSubmit: function (e) {
-    e.preventDefault()
-    if (this.state.text.length == 0){
+    e.preventDefault();
+    if (this.state.text.length === 0){
       return;
     }
     this.props.onSubmit(this.state);
@@ -27,14 +27,14 @@ var TestForm = React.createClass({
   render: function() {
     return (
       <form onSubmit={this.onSubmit}>
-        <input type='text' 
+        <input type='text'
           value={this.state.text}
           onChange={this.onTextChange}
           placeholder='Введите текст сообщения'/>
 
         <label>
-          <input type='checkbox' 
-            onChange={this.onCheckChange} 
+          <input type='checkbox'
+            onChange={this.onCheckChange}
             checked={this.state.important} />
           Важное
         </label>
@@ -46,7 +46,12 @@ var TestForm = React.createClass({
 
 var DebugView = React.createClass({
   render: function(){
-    return <pre className='debugger' dangerouslySetInnerHTML={{__html: JSON.stringify(this.props.data, null, ' ')}} ></pre>
+    var json = JSON.stringify(this.props.data, null, ' ');
+    return (
+      <pre
+            className='debugger'
+            dangerouslySetInnerHTML={{__html: json}} ></pre>
+      );
   }
 });
 
@@ -56,9 +61,11 @@ var App = React.createClass({
     if (this.messageLastId === undefined ){
       this.messageLastId = 0;
     }
-    data.date = (new Date).toTimeString().split(' ')[0]
+    data.date = new Date()
+      .toTimeString()
+      .split(' ')[0];
     data.id = this.messageLastId++;
-    notificationStore.addMessage(data)
+    notificationStore.addMessage(data);
   },
   render () {
     return (
