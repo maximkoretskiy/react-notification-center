@@ -1,6 +1,8 @@
 var React = require('react');
+var addons = require('react/addons');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
+var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var NotificationStore = function(){
   this.state = {
@@ -31,11 +33,25 @@ var NotificationCenter = React.createClass({
   componentWillUnmount(){
     notificationStore.removeListener('update', this.forceUpdate);
   },
-  render () {
-    return <div className='notification'>
+  renderItem(i){
+    return <div key={i.text} className='notification'>
       <i className='notification--left fa fa-check-circle-o fa-3x'/>
       <div className='notification--content'> Notification Center </div>
       <div className='notification--right fa fa-times-circle-o fa-3x'></div>
+    </div>
+  },
+  render () {
+    var items = this.state
+      .messages
+      .reverse()
+      .map(i => this.renderItem(i));
+    if(items.length == 0){
+      return <div/>;
+    }
+    return <div>
+      <CSSTransitionGroup transitionName='notification'>
+        {items}
+      </CSSTransitionGroup>
     </div>;
   }
 });
@@ -61,8 +77,7 @@ var NotificationCounter = React.createClass({
       <i className={iconClass}></i>
       <div className='notification-counter--value'>{this.state.messages.length}</div>
     </div>;
-  }
-  
+  } 
 });
 
 export var NotificationCenter;

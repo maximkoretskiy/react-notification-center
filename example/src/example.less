@@ -39,11 +39,11 @@ a:hover {
 }
 
 .statusbar{
-  .clearfix();
+  // .clearfix();
   // position: relative;
   &--messages{
     position: absolute;
-    left: 200px;
+    left: 400px;
     top: 10px;
 
     z-index: 2;
@@ -120,6 +120,7 @@ label {
   background-color: #dedede;
   min-height: 70px;
   width: 530px;
+  margin-bottom: 20px;
   -webkit-box-shadow: 1px 5px 5px 1px #aaa;
           box-shadow: 1px 5px 5px 1px #aaa;
   -webkit-box-sizing: border-box;
@@ -144,6 +145,13 @@ label {
   &--content{
     padding: 1em;
     width: 500px - 100px;
+  }
+  &.notification-enter{
+    transition: opacity 0.4s 0.4s ease-in ;
+    opacity: 0.01;
+  }
+  &.notification-enter-active{
+    opacity: 1;
   }
 }
 
