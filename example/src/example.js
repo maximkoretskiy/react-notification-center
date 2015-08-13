@@ -1,5 +1,5 @@
 var React = require('react');
-import {NotificationCenter, NotificationCounter, notificationStore} from 'react-notification-center';
+import {NotificationCenter, NotificationCounter, notificationStore, NotifiacationListenMixin} from 'react-notification-center';
 var TestForm = React.createClass({
   propTypes: {
     onSubmit: React.PropTypes.func.isRequired
@@ -51,17 +51,13 @@ var DebugView = React.createClass({
 });
 
 var App = React.createClass({
-  getInitialState(){
-    return notificationStore.getState()
-  },
-  componentWillMount(){
-    notificationStore.on('update', this.forceUpdate.bind(this));
-  },
-  componentWillUnmount(){
-    notificationStore.removeListener('update', this.forceUpdate);
-  },
+  mixins: [NotifiacationListenMixin],
   onSubmitForm: function(data){
+    if (this.messageLastId === undefined ){
+      this.messageLastId = 0;
+    }
     data.date = (new Date).toTimeString().split(' ')[0]
+    data.id = this.messageLastId++;
     notificationStore.addMessage(data)
   },
   render () {

@@ -18,25 +18,33 @@ NotificationStore.prototype.getState = function(){
 
 NotificationStore.prototype.addMessage = function(data){
   this.state.messages.push(data);
-  this.emit('update');
+  this.emit('update', this.state);
 }
 
 var notificationStore = new NotificationStore;
 
-var NotificationCenter = React.createClass({
+
+var NotifiacationListenMixin = {
   getInitialState(){
     return notificationStore.getState();
   },
   componentWillMount(){
-    notificationStore.on('update', this.forceUpdate.bind(this));
+    notificationStore.on('update', this.onCheckStore);
   },
   componentWillUnmount(){
-    notificationStore.removeListener('update', this.forceUpdate);
+    notificationStore.removeListener('update', this.onCheckStore);
   },
+  onCheckStore(state){
+    this.setState(state);
+  }
+}
+
+var NotificationCenter = React.createClass({
+  mixins: [NotifiacationListenMixin],
   renderItem(i){
-    return <div key={i.text} className='notification'>
+    return <div key={i.id} className='notification'>
       <i className='notification--left fa fa-check-circle-o fa-3x'/>
-      <div className='notification--content'> Notification Center </div>
+      <div className='notification--content'>{i.text}</div>
       <div className='notification--right fa fa-times-circle-o fa-3x'></div>
     </div>
   },
@@ -56,17 +64,9 @@ var NotificationCenter = React.createClass({
   }
 });
 var NotificationCounter = React.createClass({
+  mixins: [NotifiacationListenMixin],
   propTypes: {
     iconClass: React.PropTypes.string
-  },
-  getInitialState(){
-    return notificationStore.getState();
-  },
-  componentWillMount(){
-    notificationStore.on('update', this.forceUpdate.bind(this));
-  },
-  componentWillUnmount(){
-    notificationStore.removeListener('update', this.forceUpdate);
   },
   render () {
     var iconClass = 'notification-counter--icon ';
@@ -83,3 +83,4 @@ var NotificationCounter = React.createClass({
 export var NotificationCenter;
 export var NotificationCounter;
 export var notificationStore;
+export var NotifiacationListenMixin;
