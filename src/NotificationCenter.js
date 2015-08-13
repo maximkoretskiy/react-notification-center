@@ -1,5 +1,4 @@
 var React = require('react');
-var Icon = require('react-evil-icons');
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 

@@ -21,8 +21,7 @@
     "eslint-plugin-react": "^2.5.0",
     "gulp": "^3.9.0",
     "react": ">=0.13.3",
-    "react-component-gulp-tasks": "^0.7.0",
-    "react-evil-icons": "^0.4.0"
+    "react-component-gulp-tasks": "^0.7.0"
   },
   "peerDependencies": {
     "react": ">=0.13.3"
