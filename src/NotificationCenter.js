@@ -27,6 +27,9 @@ class NotificationStore extends EventEmitter{
     this.emit('update', this.state);
   }
   toggleLog(){
+    if(this.getNotificationsLog().length === 0){
+      return;
+    }
     this.state.showLog = !this.state.showLog;
     this.setImportantComplete();
     this.emit('update', this.state);
