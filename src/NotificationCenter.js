@@ -54,7 +54,7 @@ class NotificationStore extends EventEmitter{
     if (_.size(importantList)){
       let importantItem = _.cloneDeep(importantList[0]);
       importantItem.count = _.size(importantList);
-      return importantItem
+      return importantItem;
     }
     return null;
   }
@@ -92,6 +92,7 @@ export var NotificationCenter = React.createClass({
     iconImportantClass: React.PropTypes.string.isRequired,
     iconNext: React.PropTypes.string.isRequired,
     iconUnImportantClass: React.PropTypes.string.isRequired,
+    logButtonText: React.PropTypes.string,
     onClickLogButton: React.PropTypes.func,
     onComplete: React.PropTypes.func,
     showLogButton: React.PropTypes.bool
@@ -137,7 +138,10 @@ export var NotificationCenter = React.createClass({
       items.push(<NotificationLog key='log'
               iconImportantClass= {this.props.iconImportantClass}
               iconUnImportantClass= {this.props.iconUnImportantClass}
-              items={notificationStore.getNotificationsLog()}/>);
+              items={notificationStore.getNotificationsLog()}
+              onClickLogButton={this.props.onClickLogButton}
+              logButtonText={this.props.logButtonText}
+              showLogButton={this.props.showLogButton} />);
     }else{
       let importantItem = notificationStore.getImportantNotifications()
       if(importantItem){

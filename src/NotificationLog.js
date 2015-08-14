@@ -4,7 +4,10 @@ export default React.createClass({
   propTypes: {
     iconImportantClass: React.PropTypes.string.isRequired,
     iconUnImportantClass: React.PropTypes.string.isRequired,
-    items: React.PropTypes.array.isRequired
+    items: React.PropTypes.array.isRequired,
+    logButtonText: React.PropTypes.string,
+    onClickLogButton: React.PropTypes.func,
+    showLogButton: React.PropTypes.bool
   },
   renderItem(i){
     var importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
@@ -23,9 +26,18 @@ export default React.createClass({
   render(){
     var items = this.props.items
       .map(i => this.renderItem(i));
+    var logButtonText = this.props.logButtonText || 'История уведомлений';
+    var viewAllButton = (this.props.showLogButton)?(
+      <div onClick={this.props.onClickLogButton} className='notification-log--btn'>
+        {logButtonText}
+      </div>
+    ):(
+      <div/>
+    );
     return (
       <div className='notification-log'>
         {items}
+        {viewAllButton}
       </div>
     );
   }
