@@ -1,0 +1,193 @@
+/* 
+// Examples Stylesheet
+// -------------------
+*/
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+a {
+  color: #08c;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.container {
+  padding: 1em;
+}
+.container.__shadowed {
+  box-shadow: 0px 1px 5px 1px #aaa;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.statusbar:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.statusbar--messages {
+  position: absolute;
+  left: 400px;
+  top: 10px;
+  z-index: 2;
+}
+.statusbar--counter {
+  float: right;
+}
+.line {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 940px;
+}
+.footer {
+  margin-top: 50px;
+  border-top: 1px solid #eee;
+  padding: 20px 0;
+  font-size: 12px;
+  color: #999;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #222;
+  font-weight: 100;
+  margin: 0.5em 0;
+}
+label {
+  color: #999;
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: bold;
+  margin: 1em 0;
+  text-transform: uppercase;
+}
+.hint {
+  margin: 15px 0;
+  font-style: italic;
+  color: #999;
+}
+.notification-counter {
+  background-color: #F0514F;
+  width: 46px;
+  height: 46px;
+  border-radius: 1000px;
+  color: #fff;
+  font-weight: 100;
+  font-size: 12px;
+}
+.notification-counter.__active {
+  opacity: 0.9;
+}
+.notification-counter--icon {
+  line-height: 46px;
+  margin-left: 6px;
+  float: left;
+}
+.notification-counter--value {
+  line-height: 46px;
+  float: left;
+  margin-left: 3px;
+}
+.notification {
+  background-color: #dedede;
+  min-height: 70px;
+  width: 530px;
+  margin-bottom: 20px;
+  box-shadow: 1px 5px 5px 1px #aaa;
+  box-sizing: border-box;
+  padding: 1em;
+}
+.notification:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.notification.__type_log {
+  margin-bottom: 0;
+  border-bottom: 1px dotted #777;
+}
+.notification.__type_log:last-child {
+  border-bottom: none;
+}
+.notification--left,
+.notification--content,
+.notification--right {
+  box-sizing: border-box;
+  float: left;
+  min-height: 50px;
+}
+.notification--left,
+.notification--right {
+  width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
+.notification--left i,
+.notification--right i {
+  display: block;
+  line-height: 50px;
+}
+.notification--left i.fa-long-arrow-right,
+.notification--right i.fa-long-arrow-right {
+  margin-top: -10px;
+}
+.notification--left span,
+.notification--right span {
+  display: block;
+  margin-top: -10px;
+}
+.notification--content {
+  padding: 1em;
+  width: 400px;
+}
+.notification.notification-enter {
+  transition: opacity 0.3s 0.1s ease-in;
+  opacity: 0.01;
+}
+.notification.notification-enter-active {
+  opacity: 1;
+}
+.notification.notification-leave {
+  opacity: 1;
+}
+.notification.notification-leave-active {
+  transition: opacity 0.01s ease-in;
+  opacity: 0.01;
+}
+.notification-log.notification-enter {
+  transition: opacity 0.3s 0.1s ease-in;
+  opacity: 0.01;
+}
+.notification-log.notification-enter-active {
+  opacity: 1;
+}
+.notification-log.notification-leave {
+  opacity: 1;
+}
+.notification-log.notification-leave-active {
+  transition: opacity 0.01s ease-in;
+  opacity: 0.01;
+}
+.debugger {
+  width: 300px;
+  align-self: flex-end;
+}
