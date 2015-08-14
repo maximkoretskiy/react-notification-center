@@ -88,6 +88,9 @@ var App = React.createClass({
 var onComplete = function onComplete(message) {
   console.log('Message is complete', message);
 };
+var onClickLog = function onClickLog() {
+  console.log('Log button is clicked');
+};
 
 React.render(React.createElement(App, null), document.getElementById('app'));
 React.render(React.createElement(_reactNotificationCenter.NotificationCenter, {
@@ -95,7 +98,9 @@ React.render(React.createElement(_reactNotificationCenter.NotificationCenter, {
   iconUnImportantClass: 'fa fa-check-circle-o fa-3x',
   iconClose: 'fa fa-times-circle-o fa-3x',
   iconNext: 'fa fa-long-arrow-right fa-2x',
-  onComplete: onComplete }), document.getElementById('notification-center'));
+  onComplete: onComplete,
+  onClickLogButton: onClickLog,
+  showLogButton: true }), document.getElementById('notification-center'));
 React.render(React.createElement(_reactNotificationCenter.NotificationCounter, { iconClass: 'fa fa-bell-o fa-lg' }), document.getElementById('notification-counter'));
 
 },{"react":undefined,"react-notification-center":undefined}]},{},[1]);

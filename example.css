@@ -187,6 +187,14 @@ label {
   transition: opacity 0.01s ease-in;
   opacity: 0.01;
 }
+.notification-log--btn {
+  background-color: #dedede;
+  padding: .5em;
+  box-shadow: 1px 5px 5px 1px #aaa;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+}
 .debugger {
   width: 300px;
   align-self: flex-end;

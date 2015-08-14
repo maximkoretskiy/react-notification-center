@@ -12670,7 +12670,10 @@ exports['default'] = React.createClass({
   propTypes: {
     iconImportantClass: React.PropTypes.string.isRequired,
     iconUnImportantClass: React.PropTypes.string.isRequired,
-    items: React.PropTypes.array.isRequired
+    items: React.PropTypes.array.isRequired,
+    logButtonText: React.PropTypes.string,
+    onClickLogButton: React.PropTypes.func,
+    showLogButton: React.PropTypes.bool
   },
   renderItem: function renderItem(i) {
     var importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
@@ -12700,10 +12703,17 @@ exports['default'] = React.createClass({
     var items = this.props.items.map(function (i) {
       return _this.renderItem(i);
     });
+    var logButtonText = this.props.logButtonText || 'История уведомлений';
+    var viewAllButton = this.props.showLogButton ? React.createElement(
+      'div',
+      { onClick: this.props.onClickLogButton, className: 'notification-log--btn' },
+      logButtonText
+    ) : React.createElement('div', null);
     return React.createElement(
       'div',
       { className: 'notification-log' },
-      items
+      items,
+      viewAllButton
     );
   }
 });
@@ -12766,6 +12776,9 @@ var NotificationStore = (function (_EventEmitter) {
   }, {
     key: 'toggleLog',
     value: function toggleLog() {
+      if (this.getNotificationsLog().length === 0) {
+        return;
+      }
       this.state.showLog = !this.state.showLog;
       this.setImportantComplete();
       this.emit('update', this.state);
@@ -12846,6 +12859,7 @@ var NotificationCenter = React.createClass({
     iconImportantClass: React.PropTypes.string.isRequired,
     iconNext: React.PropTypes.string.isRequired,
     iconUnImportantClass: React.PropTypes.string.isRequired,
+    logButtonText: React.PropTypes.string,
     onClickLogButton: React.PropTypes.func,
     onComplete: React.PropTypes.func,
     showLogButton: React.PropTypes.bool
@@ -12906,7 +12920,10 @@ var NotificationCenter = React.createClass({
       items.push(React.createElement(NotificationLog, { key: 'log',
         iconImportantClass: this.props.iconImportantClass,
         iconUnImportantClass: this.props.iconUnImportantClass,
-        items: notificationStore.getNotificationsLog() }));
+        items: notificationStore.getNotificationsLog(),
+        onClickLogButton: this.props.onClickLogButton,
+        logButtonText: this.props.logButtonText,
+        showLogButton: this.props.showLogButton }));
     } else {
       var importantItem = notificationStore.getImportantNotifications();
       if (importantItem) {
