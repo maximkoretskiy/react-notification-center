@@ -88,12 +88,6 @@ label {
 	color: #999;
 }
 
-// .line{
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-// }
-
 .notification-counter{
   background-color: #F0514F;
   width: 46px;
@@ -102,6 +96,9 @@ label {
   color: #fff;
   font-weight: 100;
   font-size: 12px;
+  &.__active{
+    opacity: 0.9;
+  }
   &--icon{
     line-height: 46px;
     margin-left: 6px;
@@ -111,7 +108,6 @@ label {
     line-height: 46px;
     float: left;
     margin-left: 3px;
-    
   }
 }
 
@@ -121,37 +117,75 @@ label {
   min-height: 70px;
   width: 530px;
   margin-bottom: 20px;
-  -webkit-box-shadow: 1px 5px 5px 1px #aaa;
-          box-shadow: 1px 5px 5px 1px #aaa;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+  box-shadow: 1px 5px 5px 1px #aaa;
+  box-sizing: border-box;
   padding: 1em;
+  &.__type_log{
+    margin-bottom: 0;
+    border-bottom: 1px dotted #777;
+    &:last-child{
+      border-bottom: none;
+      
+    }
+  }
   &--left,
   &--content,
   &--right{
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
     float: left;
     min-height: 50px;
   }
   &--left,
   &--right{
     width: 50px;
-    line-height: 50px;
     text-align: center;
+    cursor: pointer;
+    i{
+      display: block;
+      line-height: 50px;
+    }
+    i.fa-long-arrow-right{
+      margin-top: -10px;
+    }
+    span{
+      display: block;
+      margin-top: -10px;
+    }
   }
   &--content{
     padding: 1em;
     width: 500px - 100px;
   }
   &.notification-enter{
-    transition: opacity 0.4s 0.4s ease-in ;
+    transition: opacity 0.3s 0.1s ease-in ;
     opacity: 0.01;
   }
   &.notification-enter-active{
     opacity: 1;
+  }
+  &.notification-leave{
+    opacity: 1;
+  }
+  &.notification-leave-active{
+    transition: opacity 0.01s  ease-in ;
+    opacity: 0.01;
+  }
+}
+
+.notification-log{
+  &.notification-enter{
+    transition: opacity 0.3s 0.1s ease-in ;
+    opacity: 0.01;
+  }
+  &.notification-enter-active{
+    opacity: 1;
+  }
+  &.notification-leave{
+    opacity: 1;
+  }
+  &.notification-leave-active{
+    transition: opacity 0.01s ease-in ;
+    opacity: 0.01;
   }
 }
 
