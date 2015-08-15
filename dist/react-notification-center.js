@@ -12687,6 +12687,7 @@ var NotificationStore = (function (_EventEmitter) {
     _classCallCheck(this, NotificationStore);
 
     _get(Object.getPrototypeOf(NotificationStore.prototype), 'constructor', this).call(this);
+    this.timer = null;
     this.state = {
       messages: [],
       showLog: false
@@ -12702,7 +12703,27 @@ var NotificationStore = (function (_EventEmitter) {
     key: 'addMessage',
     value: function addMessage(data) {
       this.state.messages.push(data);
+      this.startTick();
       this.emit('update', this.state);
+    }
+  }, {
+    key: 'startTick',
+    value: function startTick(currentItemId) {
+      var notComplete = this.getUnImportantNotifications();
+      if (notComplete.length) {
+        var nextItemId = notComplete[0].id;
+        if (this.timer && currentItemId) {
+          this.timer = null;
+          if (nextItemId === currentItemId) {
+            this.setComplete(nextItemId);
+          }
+          this.startTick();
+        } else if (this.timer) {
+          return;
+        } else {
+          this.timer = setTimeout(this.startTick.bind(this, nextItemId), 3000);
+        }
+      }
     }
   }, {
     key: 'setComplete',

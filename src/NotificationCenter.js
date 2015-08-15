@@ -9,6 +9,7 @@ var NotificationLog = require('./NotificationLog');
 class NotificationStore extends EventEmitter{
   constructor(){
     super();
+    this.timer = null;
     this.state = {
       messages: [],
       showLog: false
@@ -19,7 +20,26 @@ class NotificationStore extends EventEmitter{
   }
   addMessage(data){
     this.state.messages.push(data);
+    this.startTick();
     this.emit('update', this.state);
+  }
+  startTick(currentItemId){
+    const notComplete = this.getUnImportantNotifications();
+    if(notComplete.length){
+      const nextItemId = notComplete[0].id;
+      if(this.timer && currentItemId){
+        this.timer = null;
+        if(nextItemId === currentItemId){
+          this.setComplete(nextItemId);
+        }
+        this.startTick();
+      }else if(this.timer){
+        return;
+      }
+      else{
+        this.timer = setTimeout(this.startTick.bind(this, nextItemId), 3000);
+      }
+    }
   }
   setComplete(id){
     var item = _.findWhere(this.state.messages, {id});
