@@ -19,6 +19,10 @@ var taskConfig = {
 			'react',
 			'react/addons'
 		],
+    less: {
+      path: 'less',
+      entry: 'notification-center.less'
+    },
 		lib: 'lib'
 	},
 

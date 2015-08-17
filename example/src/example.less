@@ -3,6 +3,19 @@
 // -------------------
 */
 
+@import "../../less/notification-center.less";
+
+.clearfix{
+  &:after{
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
 body {
 	font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -27,20 +40,8 @@ a:hover {
   }
 }
 
-.clearfix{
-  &:after{
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
-  }
-}
-
 .statusbar{
   .clearfix();
-  // position: relative;
   &--messages{
     position: absolute;
     left: 400px;
@@ -86,115 +87,6 @@ label {
 	margin: 15px 0;
 	font-style: italic;
 	color: #999;
-}
-
-.notification-counter{
-  background-color: #F0514F;
-  width: 46px;
-  height: 46px;
-  border-radius: 1000px;
-  color: #fff;
-  font-weight: 100;
-  font-size: 12px;
-  &.__active{
-    opacity: 0.9;
-  }
-  &--icon{
-    line-height: 46px;
-    margin-left: 6px;
-    float: left;
-  }
-  &--value{
-    line-height: 46px;
-    float: left;
-    margin-left: 3px;
-  }
-}
-
-.notification{
-  .clearfix();
-  background-color: #dedede;
-  min-height: 70px;
-  width: 530px;
-  margin-bottom: 20px;
-  box-shadow: 1px 5px 5px 1px #aaa;
-  box-sizing: border-box;
-  padding: 1em;
-  &.__type_log{
-    margin-bottom: 0;
-    border-bottom: 1px dotted #777;
-    &:last-child{
-      border-bottom: none;
-      
-    }
-  }
-  &--left,
-  &--content,
-  &--right{
-    box-sizing: border-box;
-    float: left;
-    min-height: 50px;
-  }
-  &--left,
-  &--right{
-    width: 50px;
-    text-align: center;
-    cursor: pointer;
-    i{
-      display: block;
-      line-height: 50px;
-    }
-    i.fa-long-arrow-right{
-      margin-top: -10px;
-    }
-    span{
-      display: block;
-      margin-top: -10px;
-    }
-  }
-  &--content{
-    padding: 1em;
-    width: 500px - 100px;
-  }
-  &.notification-enter{
-    transition: opacity 0.3s 0.1s ease-in ;
-    opacity: 0.01;
-  }
-  &.notification-enter-active{
-    opacity: 1;
-  }
-  &.notification-leave{
-    opacity: 1;
-  }
-  &.notification-leave-active{
-    transition: opacity 0.01s  ease-in ;
-    opacity: 0.01;
-  }
-}
-
-.notification-log{
-  &.notification-enter{
-    transition: opacity 0.3s 0.1s ease-in ;
-    opacity: 0.01;
-  }
-  &.notification-enter-active{
-    opacity: 1;
-  }
-  &.notification-leave{
-    opacity: 1;
-  }
-  &.notification-leave-active{
-    transition: opacity 0.01s ease-in ;
-    opacity: 0.01;
-  }
-  &--btn{
-    background-color: #dedede;
-    padding: .5em;
-    box-shadow: 1px 5px 5px 1px #aaa;
-    text-transform: uppercase;
-    text-align: center;
-    cursor: pointer;
-  }
 }
 
 .debugger{
