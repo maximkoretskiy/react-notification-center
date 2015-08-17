@@ -1,7 +1,7 @@
 import React from 'react';
 import {addons} from 'react/addons';
+import classNames from 'classnames';
 import NotificationListenMixin from './NotificationListenMixin';
-const {classSet} = addons;
 
 const NotificationCounter = React.createClass({
   propTypes: {
@@ -19,7 +19,7 @@ const NotificationCounter = React.createClass({
       iconClass += this.props.iconClass;
     }
 
-    const className = classSet({
+    const className = classNames({
       'notification-counter': true,
       __active: this.state.showLog,
     });
