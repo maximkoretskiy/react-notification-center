@@ -1,44 +1,60 @@
-var React = require('react');
+import React from 'react';
 
-export default React.createClass({
-  propTypes: {
-    iconImportantClass: React.PropTypes.string.isRequired,
-    iconUnImportantClass: React.PropTypes.string.isRequired,
-    items: React.PropTypes.array.isRequired,
-    logButtonText: React.PropTypes.string,
-    onClickLogButton: React.PropTypes.func,
-    showLogButton: React.PropTypes.bool
-  },
-  renderItem(i){
-    var importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
+const propTypes = {
+  iconImportantClass: React.PropTypes.string.isRequired,
+  iconUnImportantClass: React.PropTypes.string.isRequired,
+  items: React.PropTypes.array.isRequired,
+  logButtonText: React.PropTypes.string,
+  onClickLogButton: React.PropTypes.func,
+  showLogButton: React.PropTypes.bool,
+};
+
+const defaultProps = {
+  logButtonText: 'Notifications Log',
+};
+
+
+class NotificationLog extends React.Component {
+  onClickLogButton() {
+    if (this.props.onClickLogButton) {
+      this.props.onClickLogButton();
+    }
+  }
+
+  renderItem(i) {
+    const importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
     return (
-      <div key={i.id} className='notification-log--item notification __type_log'>
-        <div className='notification--left'>
+      <div key={i.id} className="notification-log--item notification __type_log">
+        <div className="notification--left">
           <i className={importanceIconClass}/>
         </div>
-        <div className='notification--content'>{i.text}</div>
-        <div className='notification--right'>
+        <div className="notification--content">{i.text}</div>
+        <div className="notification--right">
           {i.date}
         </div>
       </div>
     );
-  },
-  render(){
-    var items = this.props.items
+  }
+
+  render() {
+    const items = this.props.items
       .map(i => this.renderItem(i));
-    var logButtonText = this.props.logButtonText || 'История уведомлений';
-    var viewAllButton = (this.props.showLogButton)?(
-      <div onClick={this.props.onClickLogButton} className='notification-log--btn'>
-        {logButtonText}
+    const viewAllButton = (this.props.showLogButton) ? (
+      <div onClick={this.props.onClickLogButton} className="notification-log--btn">
+        {this.props.logButtonText}
       </div>
-    ):(
+    ) : (
       <div/>
     );
     return (
-      <div className='notification-log'>
+      <div className="notification-log">
         {items}
         {viewAllButton}
       </div>
     );
   }
-});
+}
+
+NotificationLog.propTypes = propTypes;
+NotificationLog.defaultProps = defaultProps;
+export default NotificationLog;
