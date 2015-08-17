@@ -1,5 +1,4 @@
 import React from 'react';
-// import reactMixin from 'react-mixin';
 import {addons} from 'react/addons';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
