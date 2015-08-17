@@ -13,8 +13,7 @@
     "url": "https://github.com/maximkoretskiy/react-notification-center/issues"
   },
   "dependencies": {
-    "classnames": "^2.1.2",
-    "lodash": "^3.10.1"
+    "classnames": "^2.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.14",

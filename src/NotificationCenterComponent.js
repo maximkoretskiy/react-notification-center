@@ -74,9 +74,10 @@ const NotificationCenter = React.createClass({
               items={this.store.getNotificationsLog()}
               onClickLogButton={this.props.onClickLogButton}
               logButtonText={this.props.logButtonText}
-              showLogButton={this.props.showLogButton} />);
+              showLogButton={this.props.showLogButton}
+              />);
     }else {
-      const importantItem = this.store.getImportantNotifications();
+      const importantItem = this.store.getImportantNotificationsGroup();
       if (importantItem) {
         items.push(this.renderItem(importantItem));
       }

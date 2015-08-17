@@ -1,4 +1,4 @@
-import notificationStore from './notificationStore';
+import notificationStore from './NotificationStore';
 
 const NotificationListenMixin = {
   getInitialState() {

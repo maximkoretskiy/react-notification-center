@@ -1,10 +1,10 @@
 import {EventEmitter} from 'events';
-import _ from 'lodash';
 
 class NotificationStore extends EventEmitter {
   constructor() {
     super();
     this.timer = null;
+    this.timeout = 1000 * 3;
     this.state = {
       messages: [],
       showLog: false,
@@ -22,35 +22,34 @@ class NotificationStore extends EventEmitter {
   }
 
   startTick(currentItemId) {
-    const notComplete = this.getUnImportantNotifications();
-    if (notComplete.length) {
-      const nextItemId = notComplete[0].id;
-      if (this.timer && currentItemId) {
-        this.timer = null;
-        if (nextItemId === currentItemId) {
-          this.setComplete(nextItemId);
-        }
+    if (this.timer && currentItemId === undefined ) return;
 
-        this.startTick();
-      }else if (this.timer) {
-        return;
-      } else {
-        this.timer = setTimeout(this.startTick.bind(this, nextItemId), 3000);
+    const notComplete = this.getUnImportantNotifications();
+    if (notComplete.length === 0) return;
+
+    const nextItemId = notComplete[0].id;
+    if (this.timer && currentItemId !== undefined) {
+      this.timer = null;
+      if (nextItemId === currentItemId) {
+        this.setComplete(nextItemId);
       }
+
+      this.startTick();
+    } else {
+      this.timer = setTimeout( ()=> this.startTick(nextItemId),
+        this.timeout);
     }
   }
 
   setComplete(id) {
-    const item = _.findWhere(this.state.messages, {id});
-    item.complete = true;
+    this.state.messages
+      .filter(item => item.id === id)
+      .forEach(item => item.complete = true);
     this.emit('update', this.state);
   }
 
   toggleLog() {
-    if (this.getNotificationsLog().length === 0) {
-      return;
-    }
-
+    if (this.getNotificationsLog().length === 0) return;
     this.state.showLog = !this.state.showLog;
     this.setImportantComplete();
     this.emit('update', this.state);
@@ -63,37 +62,33 @@ class NotificationStore extends EventEmitter {
   }
 
   countNotifications() {
-    return _(this.state.messages)
-      .filter(i => i.important && !i.complete)
-      .size();
+    return this.getImportantNotifications().length;
   }
 
   getUnImportantNotifications() {
-    return _(this.state.messages)
+    return this.state.messages
       .filter(i => !i.important && !i.complete)
-      .reverse()
-      .value();
+      .reverse();
   }
 
   getImportantNotifications() {
-    const importantList = _(this.state.messages)
-      .filter(i => i.important && !i.complete)
-      .value();
-    if (_.size(importantList)) {
-      const importantItem = _.cloneDeep(importantList[0]);
-      importantItem.count = _.size(importantList);
-      return importantItem;
-    }
+    return this.state.messages
+      .filter(i => i.important && !i.complete);
+  }
 
-    return null;
+  getImportantNotificationsGroup() {
+    const importantList = this.getImportantNotifications();
+    if (importantList.length === 0) return null;
+    const firstItem = Object.assign({}, importantList[0]);
+    firstItem.count = importantList.length;
+    return firstItem;
   }
 
   getNotificationsLog() {
-    return _(this.state.messages)
+    return this.state.messages
       .filter(i => i.important)
       .reverse()
-      .take(5)
-      .value();
+      .slice(0, 5);
   }
 }
 
