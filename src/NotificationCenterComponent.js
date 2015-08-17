@@ -5,9 +5,6 @@ import NotificationLog from './NotificationLog';
 
 const {CSSTransitionGroup} = addons;
 
-// FIXME: classSet is deprecated
-
-// class NotificationCenter extends NotificationListenMixin {
 const NotificationCenter = React.createClass({
   propTypes: {
     iconClose: React.PropTypes.string.isRequired,
@@ -28,45 +25,43 @@ const NotificationCenter = React.createClass({
     }
   },
 
-  renderCloseIcon(i) {
-    let icon;
-    if (i.important && i.count > 1) {
-      icon = (
+  renderCloseIcon(notification) {
+    let iconTag;
+    if (notification.important && notification.count > 1) {
+      iconTag = (
         <div>
           <i className={this.props.iconNext}/>
-          <span>{i.count}</span>
+          <span>{notification.count}</span>
         </div>
       );
     }else {
-      icon = <i className={this.props.iconClose}/>;
+      iconTag = <i className={this.props.iconClose}/>;
     }
-    return icon;
+    return iconTag;
   },
 
-  renderItem(i) {
-    const importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
-    const key = i.important ? 'important' : i.id;
+  renderNotification(notification) {
+    const importanceIconClass = notification.important ?
+      this.props.iconImportantClass : this.props.iconUnImportantClass;
+    const key = notification.important ? 'important' : notification.id;
     return (
       <div key={key} className="notification">
         <div className="notification--left">
           <i className={importanceIconClass}/>
         </div>
-        <div className="notification--content">{i.text}</div>
+        <div className="notification--content">{notification.text}</div>
         <div
           className="notification--right"
-          onClick={this.onClickComplete.bind(this, i)}
+          onClick={this.onClickComplete.bind(this, notification)}
         >
-          {this.renderCloseIcon(i)}
+          {this.renderCloseIcon(notification)}
         </div>
       </div>
     );
   },
 
-  render() {
-    const items = this.store.getUnImportantNotifications()
-      .map(item => this.renderItem(item));
-    if (this.state.showLog) {
-      items.push(<NotificationLog
+  renderNotificationLog() {
+    return (<NotificationLog
               key="log"
               iconImportantClass= {this.props.iconImportantClass}
               iconUnImportantClass= {this.props.iconUnImportantClass}
@@ -74,20 +69,27 @@ const NotificationCenter = React.createClass({
               onClickLogButton={this.props.onClickLogButton}
               logButtonText={this.props.logButtonText}
               showLogButton={this.props.showLogButton}
-              />);
-    }else {
+            />);
+  },
+
+  render() {
+    const items = this.store.getUnImportantNotifications()
+      .map(item => this.renderNotification(item));
+    if (this.state.showLog) {
+      items.push(this.renderNotificationLog());
+    } else {
       const importantItem = this.store.getImportantNotificationsGroup();
       if (importantItem) {
-        items.push(this.renderItem(importantItem));
+        items.push(this.renderNotification(importantItem));
       }
     }
 
     return (
         <div>
-        <CSSTransitionGroup transitionName="notification">
-          {items}
-        </CSSTransitionGroup>
-      </div>
+          <CSSTransitionGroup transitionName="notification">
+            {items}
+          </CSSTransitionGroup>
+        </div>
     );
   },
 });
