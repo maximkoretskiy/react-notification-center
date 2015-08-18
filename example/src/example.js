@@ -11,4 +11,4 @@ React.render(<NotificationCenter
     onClickLogButton={onClickLog}
     showLogButton={true}
   />, document.getElementById('notification-center'));
-React.render(<NotificationCounter iconClass="fa fa-bell-o fa-lg" />, document.getElementById('notification-counter'));
+React.render(<NotificationCounter/>, document.getElementById('notification-counter'));

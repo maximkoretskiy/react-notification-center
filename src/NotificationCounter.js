@@ -5,27 +5,28 @@ import NotificationListenMixin from './NotificationListenMixin';
 
 const NotificationCounter = React.createClass({
   propTypes: {
-    iconClass: React.PropTypes.string,
+    iconTag: React.PropTypes.element,
   },
 
   mixins: [NotificationListenMixin],
+  getDefaultProps() {
+    return {
+      iconTag: <i className="fa fa-bell-o fa-lg"/>,
+    };
+  },
+
   onClick() {
     this.store.toggleLog();
   },
 
   render() {
-    let iconClass = 'notification-counter--icon ';
-    if (this.props.iconClass) {
-      iconClass += this.props.iconClass;
-    }
-
     const className = classNames({
       'notification-counter': true,
       __active: this.state.showLog,
     });
     return (
       <div onClick={this.onClick} className={className}>
-        <i className={iconClass}></i>
+        {this.props.iconTag}
         <div className="notification-counter--value">{this.store.countNotifications()}</div>
       </div>
     );
