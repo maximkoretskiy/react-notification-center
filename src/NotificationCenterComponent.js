@@ -12,6 +12,7 @@ const NotificationCenter = React.createClass({
     iconTagUnImportant: React.PropTypes.element,
     iconTagNext: React.PropTypes.element,
     logButtonText: React.PropTypes.string,
+    messages: React.PropTypes.array,
     onClickLogButton: React.PropTypes.func,
     onComplete: React.PropTypes.func,
     showLogButton: React.PropTypes.bool,
@@ -24,7 +25,12 @@ const NotificationCenter = React.createClass({
       iconTagImportant: <i className="fa fa-exclamation-triangle fa-3x" />,
       iconTagNext: <i className="fa fa-long-arrow-right fa-2x" />,
       iconTagUnImportant: <i className="fa fa-check-circle-o fa-3x" />,
+      messages: [],
     };
+  },
+
+  componentWillMount() {
+    this.store.setFromProps(this.props.messages);
   },
 
   onClickComplete(item) {

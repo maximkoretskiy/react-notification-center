@@ -9,15 +9,32 @@ class NotificationStore extends EventEmitter {
       messages: [],
       showLog: false,
     };
+    this.on('update', ()=> this.startTick());
   }
 
   getState() {
     return this.state;
   }
 
+  setFromProps(messages) {
+    const addedIds = this.state.messages.map( notification => notification.id);
+    const newMessages = messages.reduce((arr, current)=> {
+      if (addedIds.indexOf(current.id) === -1) {
+        arr.push(current);
+      }
+      return arr;
+    }, []);
+    if (newMessages.length > 0) {
+      const updatedMessages = this.state.messages.concat(newMessages);
+      this.state.messages = updatedMessages;
+      this.emit('update', this.state);
+      return true;
+    }
+    return false;
+  }
+
   addMessage(data) {
     this.state.messages.push(data);
-    this.startTick();
     this.emit('update', this.state);
   }
 
@@ -48,10 +65,13 @@ class NotificationStore extends EventEmitter {
     this.emit('update', this.state);
   }
 
-  toggleLog() {
+  toggleLog(value = null) {
     if (this.getNotificationsLog().length === 0) return;
-    this.state.showLog = !this.state.showLog;
-    this.setImportantComplete();
+    const showLog = (value !== null) ? !!value : !this.state.showLog;
+    this.state.showLog = showLog;
+    if (showLog) {
+      this.setImportantComplete();
+    }
     this.emit('update', this.state);
   }
 

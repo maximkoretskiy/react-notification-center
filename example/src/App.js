@@ -7,7 +7,7 @@ const  App = React.createClass({
   mixins: [NotificationListenMixin],
   onSubmitForm(data) {
     if (this.messageLastId === undefined) {
-      this.messageLastId = 0;
+      this.messageLastId = 10;
     }
 
     data.date = new Date()
