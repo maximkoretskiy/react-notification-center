@@ -449,6 +449,13 @@ var NotificationCenter = _react2['default'].createClass({
     }
   },
 
+  onClickLogButton: function onClickLogButton() {
+    if (this.props.onClickLogButton) {
+      this.props.onClickLogButton();
+    }
+    this.store.toggleLog(false);
+  },
+
   renderCloseIcon: function renderCloseIcon(notification) {
     var iconTag = undefined;
     if (notification.important && notification.count > 1) {
@@ -476,21 +483,25 @@ var NotificationCenter = _react2['default'].createClass({
       { key: key, className: 'notification' },
       _react2['default'].createElement(
         'div',
-        { className: 'notification--left' },
-        importanceIconTag
-      ),
-      _react2['default'].createElement(
-        'div',
-        { className: 'notification--content' },
-        notification.text
-      ),
-      _react2['default'].createElement(
-        'div',
-        {
-          className: 'notification--right',
-          onClick: this.onClickComplete.bind(this, notification)
-        },
-        this.renderCloseIcon(notification)
+        { className: 'notification--wrap' },
+        _react2['default'].createElement(
+          'div',
+          { className: 'notification--left' },
+          importanceIconTag
+        ),
+        _react2['default'].createElement(
+          'div',
+          { className: 'notification--content' },
+          notification.text
+        ),
+        _react2['default'].createElement(
+          'div',
+          {
+            className: 'notification--right',
+            onClick: this.onClickComplete.bind(this, notification)
+          },
+          this.renderCloseIcon(notification)
+        )
       )
     );
   },
@@ -500,7 +511,7 @@ var NotificationCenter = _react2['default'].createClass({
       key: 'log',
       iconTagImportant: this.props.iconTagImportant,
       items: this.store.getNotificationsLog(),
-      onClickLogButton: this.props.onClickLogButton,
+      onClickLogButton: this.onClickLogButton,
       logButtonText: this.props.logButtonText,
       showLogButton: this.props.showLogButton
     });
@@ -693,18 +704,22 @@ var NotificationLog = (function (_React$Component) {
         { key: i.id, className: 'notification-log--item notification __type_log' },
         _react2['default'].createElement(
           'div',
-          { className: 'notification--left' },
-          this.props.iconTagImportant
-        ),
-        _react2['default'].createElement(
-          'div',
-          { className: 'notification--content' },
-          i.text
-        ),
-        _react2['default'].createElement(
-          'div',
-          { className: 'notification--right' },
-          i.date
+          { className: 'notification--wrap' },
+          _react2['default'].createElement(
+            'div',
+            { className: 'notification--left' },
+            this.props.iconTagImportant
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'notification--content' },
+            i.text
+          ),
+          _react2['default'].createElement(
+            'div',
+            { className: 'notification--right' },
+            i.date
+          )
         )
       );
     }
