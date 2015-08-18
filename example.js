@@ -1,106 +1,206 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Debug = require('./Debug');
+
+var _Debug2 = _interopRequireDefault(_Debug);
+
+var _TestForm = require('./TestForm');
+
+var _TestForm2 = _interopRequireDefault(_TestForm);
+
 var _reactNotificationCenter = require('react-notification-center');
 
-var React = require('react');
+var App = _react2['default'].createClass({
+  displayName: 'App',
 
-var TestForm = React.createClass({
+  mixins: [_reactNotificationCenter.NotificationListenMixin],
+  onSubmitForm: function onSubmitForm(data) {
+    if (this.messageLastId === undefined) {
+      this.messageLastId = 0;
+    }
+
+    data.date = new Date().toTimeString().split(' ')[0];
+    data.id = this.messageLastId++;
+    this.store.addMessage(data);
+  },
+
+  render: function render() {
+    return _react2['default'].createElement(
+      'div',
+      { className: 'line' },
+      _react2['default'].createElement(_TestForm2['default'], { onSubmit: this.onSubmitForm }),
+      _react2['default'].createElement(_Debug2['default'], { data: this.state })
+    );
+  }
+});
+
+exports['default'] = App;
+module.exports = exports['default'];
+
+},{"./Debug":2,"./TestForm":3,"react":undefined,"react-notification-center":undefined}],2:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var propTypes = {
+  data: _react2['default'].PropTypes.object
+};
+
+var DebugView = (function (_React$Component) {
+  _inherits(DebugView, _React$Component);
+
+  function DebugView() {
+    _classCallCheck(this, DebugView);
+
+    _get(Object.getPrototypeOf(DebugView.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(DebugView, [{
+    key: 'render',
+    value: function render() {
+      var json = JSON.stringify(this.props.data, null, ' ');
+      return _react2['default'].createElement('pre', {
+        className: 'debugger',
+        dangerouslySetInnerHTML: { __html: json }
+      });
+    }
+  }]);
+
+  return DebugView;
+})(_react2['default'].Component);
+
+DebugView.propTypes = propTypes;
+
+exports['default'] = DebugView;
+module.exports = exports['default'];
+
+},{"react":undefined}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var propTypes = {
+  onSubmit: _react2['default'].PropTypes.func.isRequired
+};
+
+var TestForm = _react2['default'].createClass({
   displayName: 'TestForm',
 
-  propTypes: {
-    onSubmit: React.PropTypes.func.isRequired
-  },
   getInitialState: function getInitialState() {
     return {
       important: true,
       text: ''
     };
   },
+
   onSubmit: function onSubmit(e) {
     e.preventDefault();
     if (this.state.text.length === 0) {
       return;
     }
+
     this.props.onSubmit(this.state);
     this.setState({ text: '' });
   },
+
   onTextChange: function onTextChange(e) {
     this.setState({ text: e.target.value });
   },
+
   onCheckChange: function onCheckChange(e) {
     this.setState({ important: e.target.checked });
   },
+
   render: function render() {
-    return React.createElement(
+    return _react2['default'].createElement(
       'form',
       { onSubmit: this.onSubmit },
-      React.createElement('input', { type: 'text',
+      _react2['default'].createElement('input', { type: 'text',
         value: this.state.text,
         onChange: this.onTextChange,
         placeholder: 'Введите текст сообщения' }),
-      React.createElement(
+      _react2['default'].createElement(
         'label',
         null,
-        React.createElement('input', { type: 'checkbox',
+        _react2['default'].createElement('input', { type: 'checkbox',
           onChange: this.onCheckChange,
-          checked: this.state.important }),
+          checked: this.state.important
+        }),
         'Важное'
       ),
-      React.createElement('input', { type: 'submit', value: 'Добавить' })
+      _react2['default'].createElement('input', { type: 'submit', value: 'Добавить' })
     );
   }
 });
 
-var DebugView = React.createClass({
-  displayName: 'DebugView',
+TestForm.propTypes = propTypes;
 
-  render: function render() {
-    var json = JSON.stringify(this.props.data, null, ' ');
-    return React.createElement('pre', {
-      className: 'debugger',
-      dangerouslySetInnerHTML: { __html: json } });
-  }
-});
+exports['default'] = TestForm;
+module.exports = exports['default'];
 
-var App = React.createClass({
-  displayName: 'App',
+},{"react":undefined}],4:[function(require,module,exports){
+'use strict';
 
-  mixins: [_reactNotificationCenter.NotifiacationListenMixin],
-  onSubmitForm: function onSubmitForm(data) {
-    if (this.messageLastId === undefined) {
-      this.messageLastId = 0;
-    }
-    data.date = new Date().toTimeString().split(' ')[0];
-    data.id = this.messageLastId++;
-    _reactNotificationCenter.notificationStore.addMessage(data);
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'line' },
-      React.createElement(TestForm, { onSubmit: this.onSubmitForm }),
-      React.createElement(DebugView, { data: this.state })
-    );
-  }
-});
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _App = require('./App');
+
+var _App2 = _interopRequireDefault(_App);
+
+var _reactNotificationCenter = require('react-notification-center');
 
 var onComplete = function onComplete(message) {
-  console.log('Message is complete', message);
+    return console.log('Message is complete', message);
 };
 var onClickLog = function onClickLog() {
-  console.log('Log button is clicked');
+    return console.log('Log button was clicked');
 };
 
-React.render(React.createElement(App, null), document.getElementById('app'));
-React.render(React.createElement(_reactNotificationCenter.NotificationCenter, {
-  iconImportantClass: 'fa fa-exclamation-triangle fa-3x',
-  iconUnImportantClass: 'fa fa-check-circle-o fa-3x',
-  iconClose: 'fa fa-times-circle-o fa-3x',
-  iconNext: 'fa fa-long-arrow-right fa-2x',
-  onComplete: onComplete,
-  onClickLogButton: onClickLog,
-  showLogButton: true }), document.getElementById('notification-center'));
-React.render(React.createElement(_reactNotificationCenter.NotificationCounter, { iconClass: 'fa fa-bell-o fa-lg' }), document.getElementById('notification-counter'));
+_react2['default'].render(_react2['default'].createElement(_App2['default'], null), document.getElementById('app'));
+_react2['default'].render(_react2['default'].createElement(_reactNotificationCenter.NotificationCenter, {
+    onComplete: onComplete,
+    onClickLogButton: onClickLog,
+    showLogButton: true
+}), document.getElementById('notification-center'));
+_react2['default'].render(_react2['default'].createElement(_reactNotificationCenter.NotificationCounter, { iconClass: 'fa fa-bell-o fa-lg' }), document.getElementById('notification-counter'));
 
-},{"react":undefined,"react-notification-center":undefined}]},{},[1]);
+},{"./App":1,"react":undefined,"react-notification-center":undefined}]},{},[4]);

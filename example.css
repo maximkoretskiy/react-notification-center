@@ -2,6 +2,150 @@
 // Examples Stylesheet
 // -------------------
 */
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.notification-counter {
+  width: 46px;
+  height: 46px;
+  font-size: 12px;
+}
+.notification-counter.__active {
+  opacity: 0.9;
+}
+.notification-counter--icon {
+  line-height: 46px;
+  margin-left: 6px;
+  float: left;
+}
+.notification-counter--value {
+  line-height: 46px;
+  float: left;
+  margin-left: 3px;
+}
+.notification {
+  background-color: #FFF;
+  border: 1px solid;
+  width: 510px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.notification.__type_log {
+  margin-bottom: 0;
+}
+.notification.__type_log .notification--right {
+  padding-right: 10px;
+  font-size: 12px;
+}
+.notification.__type_log:last-child {
+  border-bottom: none;
+}
+.notification--wrap {
+  padding: 1em 0;
+}
+.notification--wrap:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.notification--wrap:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.notification--left,
+.notification--content,
+.notification--right {
+  box-sizing: border-box;
+  float: left;
+  min-height: 50px;
+}
+.notification--left,
+.notification--right {
+  width: 50px;
+  text-align: center;
+  padding: 0 0.5em;
+}
+.notification--left i,
+.notification--right i {
+  display: block;
+  line-height: 50px;
+}
+.notification--left span,
+.notification--right span {
+  display: block;
+  margin-top: -10px;
+}
+.notification--right {
+  cursor: pointer;
+}
+.notification--content {
+  padding: 1em;
+  width: 400px;
+}
+.notification.notification-enter,
+.notification-log.notification-enter {
+  transition: opacity 0.3s 0.4s ease-in, height 0.4s ease-in;
+  opacity: 0.01;
+  height: 0;
+}
+.notification.notification-enter-active,
+.notification-log.notification-enter-active {
+  height: auto;
+  opacity: 1;
+}
+.notification.notification-leave,
+.notification-log.notification-leave {
+  transition: opacity 0.3s ease-out, height 0.4s 0.3s ease-out;
+  height: auto;
+  opacity: 1;
+}
+.notification.notification-leave-active,
+.notification-log.notification-leave-active {
+  opacity: 0.01;
+  opacity: 0;
+}
+.notification--btn,
+.notification-log--btn {
+  background-color: #dedede;
+  padding: .5em;
+  box-shadow: 1px 5px 5px 1px #aaa;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+}
+i.fa-exclamation-triangle {
+  color: #f5af02;
+}
+i.fa-check-circle-0 {
+  color: #84bd00;
+}
+i.fa-times-circle-o {
+  color: #796e65;
+}
+i.fa-times-circle-o:hover {
+  color: #fff;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
 body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -22,7 +166,7 @@ a:hover {
 .container.__shadowed {
   box-shadow: 0px 1px 5px 1px #aaa;
 }
-.clearfix:after {
+.statusbar:after {
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -82,120 +226,32 @@ label {
   font-style: italic;
   color: #999;
 }
-.notification-counter {
-  background-color: #F0514F;
-  width: 46px;
-  height: 46px;
-  border-radius: 1000px;
-  color: #fff;
-  font-weight: 100;
-  font-size: 12px;
-}
-.notification-counter.__active {
-  opacity: 0.9;
-}
-.notification-counter--icon {
-  line-height: 46px;
-  margin-left: 6px;
-  float: left;
-}
-.notification-counter--value {
-  line-height: 46px;
-  float: left;
-  margin-left: 3px;
-}
-.notification {
-  background-color: #dedede;
-  min-height: 70px;
-  width: 530px;
-  margin-bottom: 20px;
-  box-shadow: 1px 5px 5px 1px #aaa;
-  box-sizing: border-box;
-  padding: 1em;
-}
-.notification:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: " ";
-  clear: both;
-  height: 0;
-}
-.notification.__type_log {
-  margin-bottom: 0;
-  border-bottom: 1px dotted #777;
-}
-.notification.__type_log:last-child {
-  border-bottom: none;
-}
-.notification--left,
-.notification--content,
-.notification--right {
-  box-sizing: border-box;
-  float: left;
-  min-height: 50px;
-}
-.notification--left,
-.notification--right {
-  width: 50px;
-  text-align: center;
-  cursor: pointer;
-}
-.notification--left i,
-.notification--right i {
-  display: block;
-  line-height: 50px;
-}
-.notification--left i.fa-long-arrow-right,
-.notification--right i.fa-long-arrow-right {
-  margin-top: -10px;
-}
-.notification--left span,
-.notification--right span {
-  display: block;
-  margin-top: -10px;
-}
-.notification--content {
-  padding: 1em;
-  width: 400px;
-}
-.notification.notification-enter {
-  transition: opacity 0.3s 0.1s ease-in;
-  opacity: 0.01;
-}
-.notification.notification-enter-active {
-  opacity: 1;
-}
-.notification.notification-leave {
-  opacity: 1;
-}
-.notification.notification-leave-active {
-  transition: opacity 0.01s ease-in;
-  opacity: 0.01;
-}
-.notification-log.notification-enter {
-  transition: opacity 0.3s 0.1s ease-in;
-  opacity: 0.01;
-}
-.notification-log.notification-enter-active {
-  opacity: 1;
-}
-.notification-log.notification-leave {
-  opacity: 1;
-}
-.notification-log.notification-leave-active {
-  transition: opacity 0.01s ease-in;
-  opacity: 0.01;
-}
-.notification-log--btn {
-  background-color: #dedede;
-  padding: .5em;
-  box-shadow: 1px 5px 5px 1px #aaa;
-  text-transform: uppercase;
-  text-align: center;
-  cursor: pointer;
-}
 .debugger {
   width: 300px;
   align-self: flex-end;
+}
+.notification-counter {
+  background-color: #F0514F;
+  border-radius: 1000px;
+  color: #fff;
+  font-weight: 100;
+}
+.notification {
+  border: none;
+  background-color: #3d3935;
+  color: #F0EFEC;
+  box-shadow: 1px 5px 5px 1px #aaa;
+}
+.notification.__type_log {
+  border-bottom: 1px dotted #777;
+}
+.notification--right i.fa-long-arrow-right {
+  margin-top: -10px;
+}
+.notification--content {
+  border-right: 1px dotted #796e65;
+}
+.notification-log--btn {
+  background-color: #3d3935;
+  color: #F0EFEC;
 }
