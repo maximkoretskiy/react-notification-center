@@ -302,6 +302,55 @@ function isUndefined(arg) {
 }
 
 },{}],2:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+
+module.exports = React.createClass({
+    displayName: "Icon",
+
+    propTypes: {
+        size: React.PropTypes.string.isRequired,
+        name: React.PropTypes.string.isRequired,
+        className: React.PropTypes.string },
+
+    render: function render() {
+        var size = this.props.size ? " icon--" + this.props.size : "";
+        var className = this.props.className ? " " + this.props.className : "";
+        var klass = "icon icon--" + this.props.name + size + className;
+
+        var name = "#" + this.props.name + "-icon";
+        var useTag = "<use xlink:href=" + name + " />";
+        var Icon = React.createElement("svg", { className: "icon__cnt", dangerouslySetInnerHTML: { __html: useTag } });
+        return React.createElement(
+            "div",
+            { className: klass },
+            this.wrapSpinner(Icon, klass)
+        );
+    },
+
+    wrapSpinner: function wrapSpinner(Html, klass) {
+        if (klass.indexOf("spinner") > -1) {
+            return React.createElement(
+                "div",
+                { className: "icon__spinner" },
+                Html
+            );
+        } else {
+            return Html;
+        }
+    }
+
+});
+},{"react":undefined}],3:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var Icon = _interopRequire(require("./Icon"));
+
+module.exports = Icon;
+},{"./Icon":2}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -339,7 +388,7 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{"./NotificationCenterComponent":3,"./NotificationCounter":4,"./NotificationListenMixin":5,"./NotificationLog":6,"./notificationStore":7}],3:[function(require,module,exports){
+},{"./NotificationCenterComponent":5,"./NotificationCounter":6,"./NotificationListenMixin":7,"./NotificationLog":8,"./notificationStore":9}],5:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -363,25 +412,35 @@ var _NotificationLog = require('./NotificationLog');
 
 var _NotificationLog2 = _interopRequireDefault(_NotificationLog);
 
+var _reactEvilIcons = require('react-evil-icons');
+
+var _reactEvilIcons2 = _interopRequireDefault(_reactEvilIcons);
+
 var CSSTransitionGroup = _reactAddons.addons.CSSTransitionGroup;
 
-// FIXME: classSet is deprecated
-
-// class NotificationCenter extends NotificationListenMixin {
 var NotificationCenter = _react2['default'].createClass({
   displayName: 'NotificationCenter',
 
   propTypes: {
-    iconClose: _react2['default'].PropTypes.string.isRequired,
-    iconImportantClass: _react2['default'].PropTypes.string.isRequired,
-    iconNext: _react2['default'].PropTypes.string.isRequired,
-    iconUnImportantClass: _react2['default'].PropTypes.string.isRequired,
+    iconTagClose: _react2['default'].PropTypes.element,
+    iconTagImportant: _react2['default'].PropTypes.element,
+    iconTagUnImportant: _react2['default'].PropTypes.element,
+    iconTagNext: _react2['default'].PropTypes.element,
     logButtonText: _react2['default'].PropTypes.string,
     onClickLogButton: _react2['default'].PropTypes.func,
     onComplete: _react2['default'].PropTypes.func,
     showLogButton: _react2['default'].PropTypes.bool
   },
   mixins: [_NotificationListenMixin2['default']],
+
+  getDefaultProps: function getDefaultProps() {
+    return {
+      iconTagClose: _react2['default'].createElement('i', { className: 'fa fa-times-circle-o fa-3x' }),
+      iconTagImportant: _react2['default'].createElement('i', { className: 'fa fa-exclamation-triangle fa-3x' }),
+      iconTagNext: _react2['default'].createElement('i', { className: 'fa fa-long-arrow-right fa-2x' }),
+      iconTagUnImportant: _react2['default'].createElement('i', { className: 'fa fa-check-circle-o fa-3x' })
+    };
+  },
 
   onClickComplete: function onClickComplete(item) {
     this.store.setComplete(item.id);
@@ -390,72 +449,75 @@ var NotificationCenter = _react2['default'].createClass({
     }
   },
 
-  renderCloseIcon: function renderCloseIcon(i) {
-    var icon = undefined;
-    if (i.important && i.count > 1) {
-      icon = _react2['default'].createElement(
+  renderCloseIcon: function renderCloseIcon(notification) {
+    var iconTag = undefined;
+    if (notification.important && notification.count > 1) {
+      iconTag = _react2['default'].createElement(
         'div',
         null,
-        _react2['default'].createElement('i', { className: this.props.iconNext }),
+        this.props.iconTagNext,
         _react2['default'].createElement(
           'span',
           null,
-          i.count
+          notification.count
         )
       );
     } else {
-      icon = _react2['default'].createElement('i', { className: this.props.iconClose });
+      iconTag = this.props.iconTagClose;
     }
-    return icon;
+    return iconTag;
   },
 
-  renderItem: function renderItem(i) {
-    var importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
-    var key = i.important ? 'important' : i.id;
+  renderNotification: function renderNotification(notification) {
+    var importanceIconTag = notification.important ? this.props.iconTagImportant : this.props.iconTagUnImportant;
+    var key = notification.important ? 'important' : notification.id;
     return _react2['default'].createElement(
       'div',
       { key: key, className: 'notification' },
       _react2['default'].createElement(
         'div',
         { className: 'notification--left' },
-        _react2['default'].createElement('i', { className: importanceIconClass })
+        importanceIconTag
       ),
       _react2['default'].createElement(
         'div',
         { className: 'notification--content' },
-        i.text
+        notification.text
       ),
       _react2['default'].createElement(
         'div',
         {
           className: 'notification--right',
-          onClick: this.onClickComplete.bind(this, i)
+          onClick: this.onClickComplete.bind(this, notification)
         },
-        this.renderCloseIcon(i)
+        this.renderCloseIcon(notification)
       )
     );
+  },
+
+  renderNotificationLog: function renderNotificationLog() {
+    return _react2['default'].createElement(_NotificationLog2['default'], {
+      key: 'log',
+      iconTagImportant: this.props.iconTagImportant,
+      items: this.store.getNotificationsLog(),
+      onClickLogButton: this.props.onClickLogButton,
+      logButtonText: this.props.logButtonText,
+      showLogButton: this.props.showLogButton
+    });
   },
 
   render: function render() {
     var _this = this;
 
     var items = this.store.getUnImportantNotifications().map(function (item) {
-      return _this.renderItem(item);
+      return _this.renderNotification(item);
     });
     if (this.state.showLog) {
-      items.push(_react2['default'].createElement(_NotificationLog2['default'], {
-        key: 'log',
-        iconImportantClass: this.props.iconImportantClass,
-        iconUnImportantClass: this.props.iconUnImportantClass,
-        items: this.store.getNotificationsLog(),
-        onClickLogButton: this.props.onClickLogButton,
-        logButtonText: this.props.logButtonText,
-        showLogButton: this.props.showLogButton
-      }));
+      items.push(this.renderNotificationLog());
     } else {
       var importantItem = this.store.getImportantNotificationsGroup();
       if (importantItem) {
-        items.push(this.renderItem(importantItem));
+        items.push(this.renderNotification(importantItem));
       }
     }
 
@@ -475,7 +537,7 @@ exports['default'] = NotificationCenter;
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./NotificationListenMixin":5,"./NotificationLog":6,"react/addons":undefined}],4:[function(require,module,exports){
+},{"./NotificationListenMixin":7,"./NotificationLog":8,"react-evil-icons":3,"react/addons":undefined}],6:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -538,7 +600,7 @@ exports['default'] = NotificationCounter;
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./NotificationListenMixin":5,"classnames":undefined,"react/addons":undefined}],5:[function(require,module,exports){
+},{"./NotificationListenMixin":7,"classnames":undefined,"react/addons":undefined}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -573,7 +635,7 @@ var NotificationListenMixin = {
 exports['default'] = NotificationListenMixin;
 module.exports = exports['default'];
 
-},{"./notificationStore":7}],6:[function(require,module,exports){
+},{"./notificationStore":9}],8:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -596,8 +658,7 @@ var _react = (typeof window !== "undefined" ? window['React'] : typeof global !=
 var _react2 = _interopRequireDefault(_react);
 
 var propTypes = {
-  iconImportantClass: _react2['default'].PropTypes.string.isRequired,
-  iconUnImportantClass: _react2['default'].PropTypes.string.isRequired,
+  iconTagImportant: _react2['default'].PropTypes.element.isRequired,
   items: _react2['default'].PropTypes.array.isRequired,
   logButtonText: _react2['default'].PropTypes.string,
   onClickLogButton: _react2['default'].PropTypes.func,
@@ -627,14 +688,13 @@ var NotificationLog = (function (_React$Component) {
   }, {
     key: 'renderItem',
     value: function renderItem(i) {
-      var importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
       return _react2['default'].createElement(
         'div',
         { key: i.id, className: 'notification-log--item notification __type_log' },
         _react2['default'].createElement(
           'div',
           { className: 'notification--left' },
-          _react2['default'].createElement('i', { className: importanceIconClass })
+          this.props.iconTagImportant
         ),
         _react2['default'].createElement(
           'div',
@@ -679,7 +739,7 @@ exports['default'] = NotificationLog;
 module.exports = exports['default'];
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -820,5 +880,5 @@ var notificationStore = new NotificationStore();
 exports['default'] = notificationStore;
 module.exports = exports['default'];
 
-},{"events":1}]},{},[2])(2)
+},{"events":1}]},{},[4])(4)
 });
