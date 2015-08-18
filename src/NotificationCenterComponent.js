@@ -56,15 +56,17 @@ const NotificationCenter = React.createClass({
     const key = notification.important ? 'important' : notification.id;
     return (
       <div key={key} className="notification">
-        <div className="notification--left">
-          {importanceIconTag}
-        </div>
-        <div className="notification--content">{notification.text}</div>
-        <div
-          className="notification--right"
-          onClick={this.onClickComplete.bind(this, notification)}
-        >
-          {this.renderCloseIcon(notification)}
+        <div className="notification--wrap">
+          <div className="notification--left">
+            {importanceIconTag}
+          </div>
+          <div className="notification--content">{notification.text}</div>
+          <div
+            className="notification--right"
+            onClick={this.onClickComplete.bind(this, notification)}
+          >
+            {this.renderCloseIcon(notification)}
+          </div>
         </div>
       </div>
     );

@@ -23,12 +23,14 @@ class NotificationLog extends React.Component {
   renderItem(i) {
     return (
       <div key={i.id} className="notification-log--item notification __type_log">
-        <div className="notification--left">
-          {this.props.iconTagImportant}
-        </div>
-        <div className="notification--content">{i.text}</div>
-        <div className="notification--right">
-          {i.date}
+        <div className="notification--wrap">
+          <div className="notification--left">
+            {this.props.iconTagImportant}
+          </div>
+          <div className="notification--content">{i.text}</div>
+          <div className="notification--right">
+            {i.date}
+          </div>
         </div>
       </div>
     );

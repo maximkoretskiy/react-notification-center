@@ -31,20 +31,24 @@
 }
 
 .notification{
-  .clearfix();
   background-color: #FFF;
   border: 1px solid;
-  
-  min-height: 70px;
   width: 510px;
   margin-bottom: 20px;
   box-sizing: border-box;
-  padding: 1em 0;
   &.__type_log{
     margin-bottom: 0;
+    .notification--right{
+      padding-right: 10px;
+      font-size: 12px;
+    }
     &:last-child{
       border-bottom: none;
     }
+  }
+  &--wrap{
+    .clearfix();
+    padding: 1em 0;
   }
   &--left,
   &--content,
@@ -76,22 +80,25 @@
   }
 }
 
-
 .notification,
 .notification-log {
   &.notification-enter{
-    transition: opacity 0.3s 0.1s ease-in ;
+    transition: opacity 0.3s 0.4s ease-in, height 0.4s ease-in ;
     opacity: 0.01;
+    height: 0;
   }
   &.notification-enter-active{
+    height: auto;
     opacity: 1;
   }
   &.notification-leave{
+    transition: opacity 0.3s ease-out, height 0.4s 0.3s ease-out ;
+    height: auto;
     opacity: 1;
   }
   &.notification-leave-active{
-    transition: opacity 0.01s ease-in ;
     opacity: 0.01;
+    opacity: 0;
   }
   &--btn{
     background-color: #dedede;
