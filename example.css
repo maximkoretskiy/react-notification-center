@@ -166,6 +166,9 @@ a:hover {
 .container.__shadowed {
   box-shadow: 0px 1px 5px 1px #aaa;
 }
+.statusbar {
+  position: relative;
+}
 .statusbar:after {
   visibility: hidden;
   display: block;
@@ -184,7 +187,7 @@ a:hover {
 }
 .statusbar--messages {
   position: absolute;
-  left: 400px;
+  left: 200px;
   top: 10px;
   z-index: 2;
 }
@@ -227,7 +230,8 @@ label {
   color: #999;
 }
 .debugger {
-  width: 300px;
+  width: 940px;
+  overflow-wrap: break-word;
   align-self: flex-end;
 }
 .notification-counter {
