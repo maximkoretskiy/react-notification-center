@@ -27,7 +27,7 @@ var App = _react2['default'].createClass({
   mixins: [_reactNotificationCenter.NotificationListenMixin],
   onSubmitForm: function onSubmitForm(data) {
     if (this.messageLastId === undefined) {
-      this.messageLastId = 0;
+      this.messageLastId = 10;
     }
 
     data.date = new Date().toTimeString().split(' ')[0];
@@ -186,6 +186,10 @@ var _App = require('./App');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _stub = require('./stub');
+
+var _stub2 = _interopRequireDefault(_stub);
+
 var _reactNotificationCenter = require('react-notification-center');
 
 var onComplete = function onComplete(message) {
@@ -196,11 +200,59 @@ var onClickLog = function onClickLog() {
 };
 
 _react2['default'].render(_react2['default'].createElement(_App2['default'], null), document.getElementById('app'));
+
 _react2['default'].render(_react2['default'].createElement(_reactNotificationCenter.NotificationCenter, {
     onComplete: onComplete,
     onClickLogButton: onClickLog,
-    showLogButton: true
+    showLogButton: true,
+    messages: _stub2['default']
 }), document.getElementById('notification-center'));
-_react2['default'].render(_react2['default'].createElement(_reactNotificationCenter.NotificationCounter, { iconClass: 'fa fa-bell-o fa-lg' }), document.getElementById('notification-counter'));
+_react2['default'].render(_react2['default'].createElement(_reactNotificationCenter.NotificationCounter, null), document.getElementById('notification-counter'));
 
-},{"./App":1,"react":undefined,"react-notification-center":undefined}]},{},[4]);
+},{"./App":1,"./stub":5,"react":undefined,"react-notification-center":undefined}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var messages = [{
+  id: 1,
+  text: 'Отсюда естественно следует, что стиль менеджмента решительно отталкивает формирование имиджа.',
+  time: '22.06.1987',
+  important: true
+}, {
+  id: 2,
+  text: 'Селекция бренда тормозит конвергентный диктат потребителя, оптимизируя бюджеты.',
+  time: '23.06.1987',
+  important: false
+}, {
+  id: 3,
+  text: 'Управление брендом, пренебрегая деталями, программирует потребительский SWOT-анализ.',
+  time: '24.06.1987',
+  important: true
+}, {
+  id: 4,
+  text: 'Перераспределение бюджета существенно концентрирует повторный контакт, опираясь на опыт западных коллег.',
+  time: '25.06.1987',
+  important: true
+}, {
+  id: 5,
+  text: 'Каждая сфера рынка, безусловно, существенно позиционирует фирменный стиль. Искусство медиапланирования специфицирует conversion rate, отвоевывая свою долю рынка.',
+  time: '26.06.1987',
+  important: false
+}, {
+  id: 6,
+  text: 'Сопротивление концентрирует социометрический фронт.',
+  time: '29.06.1987',
+  important: true
+}, {
+  id: 7,
+  text: 'Рекламная кампания все еще интересна для многих.',
+  data: '22.06.1987',
+  important: true
+}];
+
+exports['default'] = messages;
+module.exports = exports['default'];
+
+},{}]},{},[4]);

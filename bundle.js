@@ -302,55 +302,6 @@ function isUndefined(arg) {
 }
 
 },{}],2:[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-
-module.exports = React.createClass({
-    displayName: "Icon",
-
-    propTypes: {
-        size: React.PropTypes.string.isRequired,
-        name: React.PropTypes.string.isRequired,
-        className: React.PropTypes.string },
-
-    render: function render() {
-        var size = this.props.size ? " icon--" + this.props.size : "";
-        var className = this.props.className ? " " + this.props.className : "";
-        var klass = "icon icon--" + this.props.name + size + className;
-
-        var name = "#" + this.props.name + "-icon";
-        var useTag = "<use xlink:href=" + name + " />";
-        var Icon = React.createElement("svg", { className: "icon__cnt", dangerouslySetInnerHTML: { __html: useTag } });
-        return React.createElement(
-            "div",
-            { className: klass },
-            this.wrapSpinner(Icon, klass)
-        );
-    },
-
-    wrapSpinner: function wrapSpinner(Html, klass) {
-        if (klass.indexOf("spinner") > -1) {
-            return React.createElement(
-                "div",
-                { className: "icon__spinner" },
-                Html
-            );
-        } else {
-            return Html;
-        }
-    }
-
-});
-},{"react":undefined}],3:[function(require,module,exports){
-"use strict";
-
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var Icon = _interopRequire(require("./Icon"));
-
-module.exports = Icon;
-},{"./Icon":2}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -373,10 +324,6 @@ var _NotificationLog = require('./NotificationLog');
 
 var _NotificationLog2 = _interopRequireDefault(_NotificationLog);
 
-var _reactEvilIcons = require('react-evil-icons');
-
-var _reactEvilIcons2 = _interopRequireDefault(_reactEvilIcons);
-
 var CSSTransitionGroup = _reactAddons.addons.CSSTransitionGroup;
 
 var NotificationCenter = _react2['default'].createClass({
@@ -388,6 +335,7 @@ var NotificationCenter = _react2['default'].createClass({
     iconTagUnImportant: _react2['default'].PropTypes.element,
     iconTagNext: _react2['default'].PropTypes.element,
     logButtonText: _react2['default'].PropTypes.string,
+    messages: _react2['default'].PropTypes.array,
     onClickLogButton: _react2['default'].PropTypes.func,
     onComplete: _react2['default'].PropTypes.func,
     showLogButton: _react2['default'].PropTypes.bool
@@ -399,8 +347,13 @@ var NotificationCenter = _react2['default'].createClass({
       iconTagClose: _react2['default'].createElement('i', { className: 'fa fa-times-circle-o fa-3x' }),
       iconTagImportant: _react2['default'].createElement('i', { className: 'fa fa-exclamation-triangle fa-3x' }),
       iconTagNext: _react2['default'].createElement('i', { className: 'fa fa-long-arrow-right fa-2x' }),
-      iconTagUnImportant: _react2['default'].createElement('i', { className: 'fa fa-check-circle-o fa-3x' })
+      iconTagUnImportant: _react2['default'].createElement('i', { className: 'fa fa-check-circle-o fa-3x' }),
+      messages: []
     };
+  },
+
+  componentWillMount: function componentWillMount() {
+    this.store.setFromProps(this.props.messages);
   },
 
   onClickComplete: function onClickComplete(item) {
@@ -508,7 +461,7 @@ var NotificationCenter = _react2['default'].createClass({
 exports['default'] = NotificationCenter;
 module.exports = exports['default'];
 
-},{"./NotificationListenMixin":6,"./NotificationLog":7,"react":undefined,"react-evil-icons":3,"react/addons":undefined}],5:[function(require,module,exports){
+},{"./NotificationListenMixin":4,"./NotificationLog":5,"react":undefined,"react/addons":undefined}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -520,8 +473,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactAddons = require('react/addons');
 
 var _classnames = require('classnames');
 
@@ -535,20 +486,21 @@ var NotificationCounter = _react2['default'].createClass({
   displayName: 'NotificationCounter',
 
   propTypes: {
-    iconClass: _react2['default'].PropTypes.string
+    iconTag: _react2['default'].PropTypes.element
   },
 
   mixins: [_NotificationListenMixin2['default']],
+  getDefaultProps: function getDefaultProps() {
+    return {
+      iconTag: _react2['default'].createElement('i', { className: 'fa fa-bell-o fa-lg' })
+    };
+  },
+
   onClick: function onClick() {
     this.store.toggleLog();
   },
 
   render: function render() {
-    var iconClass = 'notification-counter--icon ';
-    if (this.props.iconClass) {
-      iconClass += this.props.iconClass;
-    }
-
     var className = (0, _classnames2['default'])({
       'notification-counter': true,
       __active: this.state.showLog
@@ -556,7 +508,7 @@ var NotificationCounter = _react2['default'].createClass({
     return _react2['default'].createElement(
       'div',
       { onClick: this.onClick, className: className },
-      _react2['default'].createElement('i', { className: iconClass }),
+      this.props.iconTag,
       _react2['default'].createElement(
         'div',
         { className: 'notification-counter--value' },
@@ -569,7 +521,7 @@ var NotificationCounter = _react2['default'].createClass({
 exports['default'] = NotificationCounter;
 module.exports = exports['default'];
 
-},{"./NotificationListenMixin":6,"classnames":undefined,"react":undefined,"react/addons":undefined}],6:[function(require,module,exports){
+},{"./NotificationListenMixin":4,"classnames":undefined,"react":undefined}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -604,7 +556,7 @@ var NotificationListenMixin = {
 exports['default'] = NotificationListenMixin;
 module.exports = exports['default'];
 
-},{"./notificationStore":8}],7:[function(require,module,exports){
+},{"./notificationStore":6}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -710,7 +662,7 @@ NotificationLog.defaultProps = defaultProps;
 exports['default'] = NotificationLog;
 module.exports = exports['default'];
 
-},{"react":undefined}],8:[function(require,module,exports){
+},{"react":undefined}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -719,7 +671,7 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x2, _x3, _x4) { var _again = true; _function: while (_again) { var object = _x2, property = _x3, receiver = _x4; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x2 = parent; _x3 = property; _x4 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -733,6 +685,8 @@ var NotificationStore = (function (_EventEmitter) {
   _inherits(NotificationStore, _EventEmitter);
 
   function NotificationStore() {
+    var _this = this;
+
     _classCallCheck(this, NotificationStore);
 
     _get(Object.getPrototypeOf(NotificationStore.prototype), 'constructor', this).call(this);
@@ -742,6 +696,9 @@ var NotificationStore = (function (_EventEmitter) {
       messages: [],
       showLog: false
     };
+    this.on('update', function () {
+      return _this.startTick();
+    });
   }
 
   _createClass(NotificationStore, [{
@@ -750,16 +707,35 @@ var NotificationStore = (function (_EventEmitter) {
       return this.state;
     }
   }, {
+    key: 'setFromProps',
+    value: function setFromProps(messages) {
+      var addedIds = this.state.messages.map(function (notification) {
+        return notification.id;
+      });
+      var newMessages = messages.reduce(function (arr, current) {
+        if (addedIds.indexOf(current.id) === -1) {
+          arr.push(current);
+        }
+        return arr;
+      }, []);
+      if (newMessages.length > 0) {
+        var updatedMessages = this.state.messages.concat(newMessages);
+        this.state.messages = updatedMessages;
+        this.emit('update', this.state);
+        return true;
+      }
+      return false;
+    }
+  }, {
     key: 'addMessage',
     value: function addMessage(data) {
       this.state.messages.push(data);
-      this.startTick();
       this.emit('update', this.state);
     }
   }, {
     key: 'startTick',
     value: function startTick(currentItemId) {
-      var _this = this;
+      var _this2 = this;
 
       if (this.timer && currentItemId === undefined) return;
 
@@ -776,7 +752,7 @@ var NotificationStore = (function (_EventEmitter) {
         this.startTick();
       } else {
         this.timer = setTimeout(function () {
-          return _this.startTick(nextItemId);
+          return _this2.startTick(nextItemId);
         }, this.timeout);
       }
     }
@@ -793,9 +769,14 @@ var NotificationStore = (function (_EventEmitter) {
   }, {
     key: 'toggleLog',
     value: function toggleLog() {
+      var value = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
       if (this.getNotificationsLog().length === 0) return;
-      this.state.showLog = !this.state.showLog;
-      this.setImportantComplete();
+      var showLog = value !== null ? !!value : !this.state.showLog;
+      this.state.showLog = showLog;
+      if (showLog) {
+        this.setImportantComplete();
+      }
       this.emit('update', this.state);
     }
   }, {
@@ -889,4 +870,4 @@ exports['default'] = {
 };
 module.exports = exports['default'];
 
-},{"./NotificationCenterComponent":4,"./NotificationCounter":5,"./NotificationListenMixin":6,"./NotificationLog":7,"./notificationStore":8}]},{},[]);
+},{"./NotificationCenterComponent":2,"./NotificationCounter":3,"./NotificationListenMixin":4,"./NotificationLog":5,"./notificationStore":6}]},{},[]);

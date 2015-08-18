@@ -19,7 +19,7 @@
 .notification-counter.__active {
   opacity: 0.9;
 }
-.notification-counter--icon {
+.notification-counter i {
   line-height: 46px;
   margin-left: 6px;
   float: left;
