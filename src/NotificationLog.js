@@ -1,8 +1,7 @@
 import React from 'react';
 
 const propTypes = {
-  iconImportantClass: React.PropTypes.string.isRequired,
-  iconUnImportantClass: React.PropTypes.string.isRequired,
+  iconTagImportant: React.PropTypes.element.isRequired,
   items: React.PropTypes.array.isRequired,
   logButtonText: React.PropTypes.string,
   onClickLogButton: React.PropTypes.func,
@@ -22,11 +21,10 @@ class NotificationLog extends React.Component {
   }
 
   renderItem(i) {
-    const importanceIconClass = i.important ? this.props.iconImportantClass : this.props.iconUnImportantClass;
     return (
       <div key={i.id} className="notification-log--item notification __type_log">
         <div className="notification--left">
-          <i className={importanceIconClass}/>
+          {this.props.iconTagImportant}
         </div>
         <div className="notification--content">{i.text}</div>
         <div className="notification--right">

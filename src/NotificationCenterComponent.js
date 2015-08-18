@@ -2,21 +2,31 @@ import React from 'react';
 import {addons} from 'react/addons';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
+import Icon from 'react-evil-icons';
 
 const {CSSTransitionGroup} = addons;
 
 const NotificationCenter = React.createClass({
   propTypes: {
-    iconClose: React.PropTypes.string.isRequired,
-    iconImportantClass: React.PropTypes.string.isRequired,
-    iconNext: React.PropTypes.string.isRequired,
-    iconUnImportantClass: React.PropTypes.string.isRequired,
+    iconTagClose: React.PropTypes.element,
+    iconTagImportant: React.PropTypes.element,
+    iconTagUnImportant: React.PropTypes.element,
+    iconTagNext: React.PropTypes.element,
     logButtonText: React.PropTypes.string,
     onClickLogButton: React.PropTypes.func,
     onComplete: React.PropTypes.func,
     showLogButton: React.PropTypes.bool,
   },
   mixins: [NotificationListenMixin],
+
+  getDefaultProps() {
+    return {
+      iconTagClose: <i className="fa fa-times-circle-o fa-3x" />,
+      iconTagImportant: <i className="fa fa-exclamation-triangle fa-3x" />,
+      iconTagNext: <i className="fa fa-long-arrow-right fa-2x" />,
+      iconTagUnImportant: <i className="fa fa-check-circle-o fa-3x" />,
+    };
+  },
 
   onClickComplete(item) {
     this.store.setComplete(item.id);
@@ -30,24 +40,24 @@ const NotificationCenter = React.createClass({
     if (notification.important && notification.count > 1) {
       iconTag = (
         <div>
-          <i className={this.props.iconNext}/>
+          {this.props.iconTagNext}
           <span>{notification.count}</span>
         </div>
       );
     }else {
-      iconTag = <i className={this.props.iconClose}/>;
+      iconTag = this.props.iconTagClose;
     }
     return iconTag;
   },
 
   renderNotification(notification) {
-    const importanceIconClass = notification.important ?
-      this.props.iconImportantClass : this.props.iconUnImportantClass;
+    const importanceIconTag = notification.important ?
+      this.props.iconTagImportant : this.props.iconTagUnImportant;
     const key = notification.important ? 'important' : notification.id;
     return (
       <div key={key} className="notification">
         <div className="notification--left">
-          <i className={importanceIconClass}/>
+          {importanceIconTag}
         </div>
         <div className="notification--content">{notification.text}</div>
         <div
@@ -63,8 +73,7 @@ const NotificationCenter = React.createClass({
   renderNotificationLog() {
     return (<NotificationLog
               key="log"
-              iconImportantClass= {this.props.iconImportantClass}
-              iconUnImportantClass= {this.props.iconUnImportantClass}
+              iconTagImportant= {this.props.iconTagImportant}
               items={this.store.getNotificationsLog()}
               onClickLogButton={this.props.onClickLogButton}
               logButtonText={this.props.logButtonText}

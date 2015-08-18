@@ -7,10 +7,6 @@ const onClickLog = ()=> console.log('Log button was clicked');
 
 React.render(<App />, document.getElementById('app'));
 React.render(<NotificationCenter
-    iconImportantClass="fa fa-exclamation-triangle fa-3x"
-    iconUnImportantClass="fa fa-check-circle-o fa-3x"
-    iconClose="fa fa-times-circle-o fa-3x"
-    iconNext="fa fa-long-arrow-right fa-2x"
     onComplete={onComplete}
     onClickLogButton={onClickLog}
     showLogButton={true}
