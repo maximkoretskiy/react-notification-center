@@ -2,7 +2,6 @@ import React from 'react';
 import {addons} from 'react/addons';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
-import Icon from 'react-evil-icons';
 
 const {CSSTransitionGroup} = addons;
 
