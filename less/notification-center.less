@@ -12,12 +12,8 @@
 }
 
 .notification-counter{
-  background-color: #F0514F;
   width: 46px;
   height: 46px;
-  border-radius: 1000px;
-  color: #fff;
-  font-weight: 100;
   font-size: 12px;
   &.__active{
     opacity: 0.9;
@@ -36,21 +32,18 @@
 
 .notification{
   .clearfix();
-  background-color: #3d3935;
-  color: #F0EFEC;
+  background-color: #FFF;
+  border: 1px solid;
   
   min-height: 70px;
   width: 510px;
   margin-bottom: 20px;
-  box-shadow: 1px 5px 5px 1px #aaa;
   box-sizing: border-box;
   padding: 1em 0;
   &.__type_log{
     margin-bottom: 0;
-    border-bottom: 1px dotted #777;
     &:last-child{
       border-bottom: none;
-      
     }
   }
   &--left,
@@ -69,9 +62,6 @@
       display: block;
       line-height: 50px;
     }
-    i.fa-long-arrow-right{
-      margin-top: -10px;
-    }
     span{
       display: block;
       margin-top: -10px;
@@ -83,25 +73,12 @@
   &--content{
     padding: 1em;
     width: 500px - 100px;
-    border-right: 1px dotted #796e65;
-  }
-  &.notification-enter{
-    transition: opacity 0.3s 0.1s ease-in ;
-    opacity: 0.01;
-  }
-  &.notification-enter-active{
-    opacity: 1;
-  }
-  &.notification-leave{
-    opacity: 1;
-  }
-  &.notification-leave-active{
-    transition: opacity 0.01s  ease-in ;
-    opacity: 0.01;
   }
 }
 
-.notification-log{
+
+.notification,
+.notification-log {
   &.notification-enter{
     transition: opacity 0.3s 0.1s ease-in ;
     opacity: 0.01;
