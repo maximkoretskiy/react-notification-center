@@ -35,6 +35,13 @@ const NotificationCenter = React.createClass({
     }
   },
 
+  onClickLogButton() {
+    if (this.props.onClickLogButton) {
+      this.props.onClickLogButton();
+    }
+    this.store.toggleLog(false);
+  },
+
   renderCloseIcon(notification) {
     let iconTag;
     if (notification.important && notification.count > 1) {
@@ -77,7 +84,7 @@ const NotificationCenter = React.createClass({
               key="log"
               iconTagImportant= {this.props.iconTagImportant}
               items={this.store.getNotificationsLog()}
-              onClickLogButton={this.props.onClickLogButton}
+              onClickLogButton={this.onClickLogButton}
               logButtonText={this.props.logButtonText}
               showLogButton={this.props.showLogButton}
             />);
