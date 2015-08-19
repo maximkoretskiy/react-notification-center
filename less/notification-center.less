@@ -1,6 +1,6 @@
 @import "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
 
-.clearfix{
+ @define-mixin clearfix{
   &:after{
     visibility: hidden;
     display: block;
@@ -47,7 +47,7 @@
     }
   }
   &--wrap{
-    .clearfix();
+    @mixin clearfix;
     padding: 1em 0;
   }
   &--left,

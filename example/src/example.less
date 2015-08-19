@@ -5,7 +5,7 @@
 
 @import "../../less/notification-center.less";
 
-.clearfix{
+@define-mixin clearfix{
   &:after{
     visibility: hidden;
     display: block;
@@ -41,7 +41,7 @@ a:hover {
 }
 
 .statusbar{
-  .clearfix();
+  @mixin clearfix;
   position: relative;
   &--messages{
     position: absolute;

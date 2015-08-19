@@ -19,9 +19,9 @@ var taskConfig = {
 			'react',
 			'react/addons'
 		],
-    less: {
-      path: 'less',
-      entry: 'notification-center.less'
+    css: {
+      path: 'css',
+      entry: 'notification-center.css'
     },
 		lib: 'lib'
 	},
@@ -36,8 +36,8 @@ var taskConfig = {
 		scripts: [
 			'example.js'
 		],
-		less: [
-			'example.less'
+		css: [
+			'example.css'
 		]
 	}
 
