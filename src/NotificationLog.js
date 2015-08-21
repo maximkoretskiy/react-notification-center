@@ -27,10 +27,8 @@ class NotificationLog extends React.Component {
           <div className="notification--left">
             {this.props.iconTagImportant}
           </div>
-          <div className="notification--content">{i.text}</div>
-          <div className="notification--right">
-            {i.date}
-          </div>
+          <div className="notification--cnt">{i.text}</div>
+          <div className="notification--right">{i.date}</div>
         </div>
       </div>
     );

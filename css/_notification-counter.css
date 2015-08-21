@@ -1,0 +1,31 @@
+.notification-counter{
+  $size: 48px;
+  width: $size;
+  height: $size;
+  text-align: center;
+  font-size: 12px;  
+  &.__active,
+  &:hover
+  {
+    background-color: #eee;
+  }
+  &.__has_items{
+    background-color: $c-cnt-red;
+    color: #FFF;
+    &.__active,
+    &:hover{
+      background-color: color($c-cnt-red w(+ 10%));
+    }  
+    .notification-counter--icon{
+      margin-left: -5px;
+    }
+  }
+  &--icon{
+    vertical-align: middle;
+    line-height: 100%;
+    display: inline-block;
+  }
+  &--value{
+    line-height: $size;
+  }
+}

@@ -1,7 +1,9 @@
 import React from 'react';
 import {addons} from 'react/addons';
+import classNames from 'classnames';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
+import Icon from './Icon';
 
 const {CSSTransitionGroup} = addons;
 
@@ -21,10 +23,10 @@ const NotificationCenter = React.createClass({
 
   getDefaultProps() {
     return {
-      iconTagClose: <i className="fa fa-times-circle-o fa-3x" />,
-      iconTagImportant: <i className="fa fa-exclamation-triangle fa-3x" />,
-      iconTagNext: <i className="fa fa-long-arrow-right fa-2x" />,
-      iconTagUnImportant: <i className="fa fa-check-circle-o fa-3x" />,
+      iconTagClose: <Icon size="m" name="ei-close"/>,
+      iconTagImportant: <Icon size="m" name="ei-exclamation"/>,
+      iconTagNext: <Icon size="s" name="ei-arrow-right"/>,
+      iconTagUnImportant: <Icon size="m" name="ei-check"/>,
       messages: [],
     };
   },
@@ -51,13 +53,17 @@ const NotificationCenter = React.createClass({
     let iconTag;
     if (notification.important && notification.count > 1) {
       iconTag = (
-        <div>
+        <div className="notification--next">
           {this.props.iconTagNext}
-          <span>{notification.count}</span>
+          <div className="notification--count">{notification.count}</div>
         </div>
       );
     }else {
-      iconTag = this.props.iconTagClose;
+      iconTag = (
+        <div className="notification--close">
+          {this.props.iconTagClose}
+        </div>
+      );
     }
     return iconTag;
   },
@@ -66,13 +72,20 @@ const NotificationCenter = React.createClass({
     const importanceIconTag = notification.important ?
       this.props.iconTagImportant : this.props.iconTagUnImportant;
     const key = notification.important ? 'important' : notification.id;
+    const className = classNames({
+      notification: true,
+      __type_item: true,
+    });
+
     return (
-      <div key={key} className="notification">
+      <div key={key} className={className}>
         <div className="notification--wrap">
           <div className="notification--left">
             {importanceIconTag}
           </div>
-          <div className="notification--content">{notification.text}</div>
+          <div className="notification--cnt">
+            {notification.text}
+          </div>
           <div
             className="notification--right"
             onClick={this.onClickComplete.bind(this, notification)}
@@ -108,7 +121,7 @@ const NotificationCenter = React.createClass({
     }
 
     return (
-        <div>
+        <div className="notification-center">
           <CSSTransitionGroup transitionName="notification">
             {items}
           </CSSTransitionGroup>

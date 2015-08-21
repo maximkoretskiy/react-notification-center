@@ -1,0 +1,90 @@
+.notification{
+  background-color: $c-bg;
+  padding: 0;
+  margin: 0;
+  color: #FFF;
+
+  &--wrap{
+    display: table;
+    width: 100%;
+    padding: 13px 0 12px 0;
+    margin: 0;
+  }
+  &--left,
+  &--right,
+  &--cnt {
+    display: table-cell;
+    min-height: 50px;
+    padding: 0;
+    margin: 0;
+  }
+  &--left,
+  &--right {
+    text-align: center;
+    vertical-align: top;
+    user-select: none;
+  }
+  &--cnt{
+    vertical-align: middle;
+    line-height: 21px;
+    padding-right: 10px;
+  }
+  &--left{
+    width: 74px;
+    .icon {
+      margin-bottom: -4px;
+    }
+    .icon--ei-exclamation{
+      fill: $c-ntf-wrn;
+    }
+    .icon--ei-check{
+      fill: $c-ntf-ok;
+    }
+  }
+  &--right{
+    width: 70px;    
+    fill: $c-lines;
+    color: $c-lines;
+  }
+  &--next{
+    padding-top: 6px;
+    font-size: 12px;
+  }
+  &--count{
+    margin-top: -3px;
+  }
+}
+
+.notification.__type_item{
+  margin: 0 0 12px 0;
+  box-shadow: 1px 5px 15px 3px #8c8b8a;
+  border-radius: 3px;
+  .notification--cnt{
+    border-right: 1px dotted $c-lines;
+  }
+  .notification--right{
+    cursor: pointer;
+  }
+}
+
+.notification.__type_log{
+  border-bottom: 1px dotted $c-lines;
+  .notification--left{
+    position: relative;
+    &:before{
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 20px;
+      bottom: -20px;
+      left: 0;
+      background-color: $c-bg;
+    }
+  }
+  .notification--right{
+    color: $c-lines;
+    font-size: 12px;
+    text-align: left;
+    vertical-align: middle;
+  }
+}

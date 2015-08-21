@@ -1,0 +1,36 @@
+$c-bg: #3d3935;
+$c-lines: #796e65;
+$c-ntf-ok: #84BC01;
+$c-ntf-wrn: #F4AF04;
+$c-cnt-red: #F0514F;
+
+@import "./_notification.css";
+@import "./_notification-log.css";
+@import "./_notification-counter.css";
+
+.notification-center{
+  width: 588px;
+}
+
+/* todo: delete code below */
+.notification,
+.notification-log {
+  &.notification-enter{
+    transition: opacity 0.3s 0.4s ease-in, height 0.4s ease-in ;
+    opacity: 0.01;
+    height: 0;
+  }
+  &.notification-enter-active{
+    height: auto;
+    opacity: 1;
+  }
+  &.notification-leave{
+    transition: opacity 0.3s ease-out, height 0.4s 0.3s ease-out ;
+    height: auto;
+    opacity: 1;
+  }
+  &.notification-leave-active{
+    opacity: 0.01;
+    opacity: 0;
+  }
+}

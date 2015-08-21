@@ -3,7 +3,8 @@
 // -------------------
 */
 
-@import "../../less/notification-center.less";
+@import "../../css/notification-center.css";
+@import "../../node_modules/evil-icons/assets/evil-icons.css";
 
 @define-mixin clearfix{
   &:after{
@@ -34,7 +35,6 @@ a:hover {
 }
 
 .container {
-  padding: 1em;
   &.__shadowed{
     box-shadow: 0px 1px 5px 1px #aaa;
   }
@@ -43,15 +43,17 @@ a:hover {
 .statusbar{
   @mixin clearfix;
   position: relative;
+  height: 84px;
   &--messages{
     position: absolute;
     left: 200px;
-    top: 10px;
+    top: 6px;
 
     z-index: 2;
   }
   &--counter{
     float: right;
+    margin-top: 17px;
   }
 }
 
@@ -97,19 +99,13 @@ label {
 }
 
 .notification-counter{
-  background-color: #F0514F;
   border-radius: 1000px;
-  color: #fff;
   font-weight: 100;
  }
 
  .notification{
-  border: none;
-  background-color: #3d3935;
-  color: #F0EFEC;
-  box-shadow: 1px 5px 5px 1px #aaa;
   &.__type_log{
-    border-bottom: 1px dotted #777;
+    /*border-bottom: 1px dotted #777;*/
   }
   &--right{
     i.fa-long-arrow-right{
@@ -121,9 +117,3 @@ label {
   }
 }
 
-.notification-log{
-  &--btn{
-    background-color: #3d3935;
-    color: #F0EFEC;
-  }
-}

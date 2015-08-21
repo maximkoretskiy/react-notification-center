@@ -7,7 +7,7 @@ class NotificationStore extends EventEmitter {
     this.timeout = 1000 * 3;
     this.state = {
       messages: [],
-      showLog: false,
+      showLog: true,
     };
     this.on('update', ()=> this.startTick());
   }
