@@ -12,7 +12,7 @@ React.render(<App />, document.getElementById('app'));
 React.render(<NotificationCenter
     onComplete={onComplete}
     onClickLogButton={onClickLog}
-    showLogButton={true}
+    showLogButton={false}
     messages={messages}
   />, document.getElementById('notification-center'));
 React.render(<NotificationCounter/>, document.getElementById('notification-counter'));

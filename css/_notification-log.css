@@ -1,13 +1,51 @@
-.notification-log {
+.notification-log{
   box-shadow: 1px 5px 15px 3px #8c8b8a;
-  background-color: $c-bg;
-  & > *:first-child{
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+  position: relative;
+  &--item{
+    
   }
-  & > *:last-child{
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+  &:before{
+    content: " ";
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    transform: rotate(45deg);
+    top: 29px;
+    right: -9px;
+    z-index: 1;
+    background-color: $c-bg;
+  }
+  $border-radius: 4px;
+  border-radius: $border-radius;
+  &--item{
+    border-bottom: 1px dotted $c-lines;
+    position: relative;
+    z-index: 2;
+    .notification--left{
+      position: relative;
+      &:before{
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        bottom: -20px;
+        left: 0;
+        background-color: $c-bg;
+      }
+    }
+  }
+
+  &--item:first-child{
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+  &--item:last-child{
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    border-bottom: none;
+    .notification--left:before{
+      content: none;
+    }
   }
   &--btn{
     text-transform: uppercase;
@@ -16,6 +54,7 @@
     cursor: pointer;   
     font-size: 12px;
     color: $c-lines;
+    background-color: $c-bg;
     &:hover{
       color: color($c-lines l(-10%));
     }

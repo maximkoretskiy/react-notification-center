@@ -27,7 +27,10 @@ class NotificationLog extends React.Component {
           <div className="notification--left">
             {this.props.iconTagImportant}
           </div>
-          <div className="notification--cnt">{i.text}</div>
+          <div
+            className="notification--cnt"
+            dangerouslySetInnerHTML={{__html: i.text}}
+          />
           <div className="notification--right">{i.date}</div>
         </div>
       </div>
@@ -37,17 +40,17 @@ class NotificationLog extends React.Component {
   render() {
     const items = this.props.items
       .map(i => this.renderItem(i));
-    const viewAllButton = (this.props.showLogButton) ? (
-      <div onClick={this.props.onClickLogButton} className="notification-log--btn">
+
+    if (this.props.viewAllButton) {
+      items.push(
+        <div onClick={this.props.onClickLogButton} className="notification-log--btn">
         {this.props.logButtonText}
       </div>
-    ) : (
-      <div/>
-    );
+      );
+    }
     return (
-      <div className="notification-log">
+      <div className="notification-log notification-log--item'">
         {items}
-        {viewAllButton}
       </div>
     );
   }

@@ -10,6 +10,9 @@ $c-cnt-red: #F0514F;
 
 .notification-center{
   width: 588px;
+  a {
+    color: #84bd00;
+  }
 }
 
 /* todo: delete code below */

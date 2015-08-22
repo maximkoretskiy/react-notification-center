@@ -17,6 +17,7 @@
     min-height: 50px;
     padding: 0;
     margin: 0;
+    min-height: 50px;
   }
   &--left,
   &--right {
@@ -64,22 +65,16 @@
   }
   .notification--right{
     cursor: pointer;
+    &:hover .icon{
+      fill: color($c-lines l(+ 5%));
+    }
   }
 }
 
 .notification.__type_log{
-  border-bottom: 1px dotted $c-lines;
   .notification--left{
     position: relative;
-    &:before{
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 20px;
-      bottom: -20px;
-      left: 0;
-      background-color: $c-bg;
-    }
+
   }
   .notification--right{
     color: $c-lines;

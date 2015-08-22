@@ -5,8 +5,7 @@
   text-align: center;
   font-size: 12px;  
   &.__active,
-  &:hover
-  {
+  &:hover {
     background-color: #eee;
   }
   &.__has_items{

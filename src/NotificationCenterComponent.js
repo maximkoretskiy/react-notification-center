@@ -69,23 +69,25 @@ const NotificationCenter = React.createClass({
   },
 
   renderNotification(notification) {
-    const importanceIconTag = notification.important ?
-      this.props.iconTagImportant : this.props.iconTagUnImportant;
     const key = notification.important ? 'important' : notification.id;
     const className = classNames({
       notification: true,
       __type_item: true,
     });
-
     return (
       <div key={key} className={className}>
         <div className="notification--wrap">
           <div className="notification--left">
-            {importanceIconTag}
+              {
+                notification.important ?
+                this.props.iconTagImportant :
+                this.props.iconTagUnImportant
+              }
           </div>
-          <div className="notification--cnt">
-            {notification.text}
-          </div>
+          <div
+            className="notification--cnt"
+            dangerouslySetInnerHTML={{__html: notification.text}}
+          />
           <div
             className="notification--right"
             onClick={this.onClickComplete.bind(this, notification)}

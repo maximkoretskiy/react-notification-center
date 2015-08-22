@@ -102,18 +102,3 @@ label {
   border-radius: 1000px;
   font-weight: 100;
  }
-
- .notification{
-  &.__type_log{
-    /*border-bottom: 1px dotted #777;*/
-  }
-  &--right{
-    i.fa-long-arrow-right{
-      margin-top: -10px;
-    }
-  }
-  &--content{
-    border-right: 1px dotted #796e65;
-  }
-}
-
