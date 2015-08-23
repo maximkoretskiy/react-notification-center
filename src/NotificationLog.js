@@ -24,6 +24,7 @@ class NotificationLog extends React.Component {
   renderNotification(notification) {
     return (
       <Notification
+        key= {notification.id}
         iconTagImportant = {this.props.iconTagImportant}
         iconTagUnImportant = {this.props.iconTagUnImportant}
         iconTagNext = {this.props.iconTagNext}
