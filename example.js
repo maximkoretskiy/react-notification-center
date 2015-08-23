@@ -149,21 +149,41 @@ var TestForm = _react2['default'].createClass({
   render: function render() {
     return _react2['default'].createElement(
       'form',
-      { onSubmit: this.onSubmit },
-      _react2['default'].createElement('input', { type: 'text',
-        value: this.state.text,
-        onChange: this.onTextChange,
-        placeholder: 'Введите текст сообщения' }),
+      {
+        className: 'form',
+        onSubmit: this.onSubmit
+      },
       _react2['default'].createElement(
-        'label',
-        null,
-        _react2['default'].createElement('input', { type: 'checkbox',
-          onChange: this.onCheckChange,
-          checked: this.state.important
+        'div',
+        { className: 'line' },
+        _react2['default'].createElement(
+          'h1',
+          null,
+          'Add your notification!'
+        ),
+        _react2['default'].createElement('input', {
+          className: 'form--input',
+          type: 'text',
+          value: this.state.text,
+          onChange: this.onTextChange,
+          placeholder: 'Place your notification text here' }),
+        _react2['default'].createElement('input', {
+          type: 'submit',
+          value: 'Add',
+          className: 'btn'
         }),
-        'Важное'
-      ),
-      _react2['default'].createElement('input', { type: 'submit', value: 'Добавить' })
+        _react2['default'].createElement('br', null),
+        _react2['default'].createElement(
+          'label',
+          null,
+          _react2['default'].createElement('input', { type: 'checkbox',
+
+            onChange: this.onCheckChange,
+            checked: this.state.important
+          }),
+          'Is important'
+        )
+      )
     );
   }
 });

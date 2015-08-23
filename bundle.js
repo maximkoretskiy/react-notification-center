@@ -801,6 +801,7 @@ var NotificationLog = (function (_React$Component) {
     key: 'renderNotification',
     value: function renderNotification(notification) {
       return _react2['default'].createElement(_Notification2['default'], {
+        key: notification.id,
         iconTagImportant: this.props.iconTagImportant,
         iconTagUnImportant: this.props.iconTagUnImportant,
         iconTagNext: this.props.iconTagNext,
