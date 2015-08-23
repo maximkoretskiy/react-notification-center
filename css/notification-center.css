@@ -1,3 +1,9 @@
+@define-mixin reset{
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+}
+
 $c-bg: #3d3935;
 $c-lines: #796e65;
 $c-ntf-ok: #84BC01;
@@ -9,31 +15,8 @@ $c-cnt-red: #F0514F;
 @import "./_notification-counter.css";
 
 .notification-center{
-  width: 588px;
+  width: 628px;
   a {
     color: #84bd00;
-  }
-}
-
-/* todo: delete code below */
-.notification,
-.notification-log {
-  &.notification-enter{
-    transition: opacity 0.3s 0.4s ease-in, height 0.4s ease-in ;
-    opacity: 0.01;
-    height: 0;
-  }
-  &.notification-enter-active{
-    height: auto;
-    opacity: 1;
-  }
-  &.notification-leave{
-    transition: opacity 0.3s ease-out, height 0.4s 0.3s ease-out ;
-    height: auto;
-    opacity: 1;
-  }
-  &.notification-leave-active{
-    opacity: 0.01;
-    opacity: 0;
   }
 }

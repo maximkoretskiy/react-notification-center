@@ -1,10 +1,9 @@
 .notification{
+  @mixin reset;
   background-color: $c-bg;
-  padding: 0;
-  margin: 0;
   color: #FFF;
-
   &--wrap{
+    @mixin reset;
     display: table;
     width: 100%;
     padding: 13px 0 12px 0;
@@ -13,22 +12,16 @@
   &--left,
   &--right,
   &--cnt {
+    @mixin reset;
     display: table-cell;
-    min-height: 50px;
     padding: 0;
     margin: 0;
-    min-height: 50px;
   }
   &--left,
   &--right {
     text-align: center;
     vertical-align: top;
     user-select: none;
-  }
-  &--cnt{
-    vertical-align: middle;
-    line-height: 21px;
-    padding-right: 10px;
   }
   &--left{
     width: 74px;
@@ -48,12 +41,33 @@
     color: $c-lines;
   }
   &--next{
+    @mixin reset;
     padding-top: 6px;
     font-size: 12px;
+    min-height: 47px;
+    min-width: 50px;
   }
   &--count{
     margin-top: -3px;
   }
+  &--cnt{
+    vertical-align: middle;
+    padding-right: 10px;
+    overflow: hidden;
+    position: relative;
+    max-width: 450px;
+  }
+  &--anim{
+    width: 900px;
+    display: block;
+  }
+  &--text{
+    display: inline-block;
+    line-height: 21px;
+    width: 450px;
+    vertical-align: middle;
+  }
+
 }
 
 .notification.__type_item{
@@ -81,5 +95,55 @@
     font-size: 12px;
     text-align: left;
     vertical-align: middle;
+  }
+}
+
+.notification{
+  overflow: hidden;
+  will-change: max-height, margin;
+  -webkit-transform: translate3d(0,0,0);
+  &.notification-enter{
+    max-height: 0;
+    margin-bottom: 0;
+  }
+  &.notification-enter.notification-enter-active{
+    transition: max-height .5s, margin .5s;
+    max-height: 150px;
+    margin-bottom: 12px;
+  }
+  &.notification-leave{
+    max-height: 150px;
+    margin-bottom: 12px;
+  }
+  &.notification-leave.notification-leave-active{
+    transition: max-height .5s, margin .5s;
+    max-height: 0;
+    margin-bottom: 0;
+  }
+  .notification-log ~ &.notification-leave{
+    transition: opacity 0.4s ease-out;
+    opacity: 1;
+  }
+  .notification-log ~ &.notification-leave-active{
+    transition: opacity 0.4s ease-out;
+    opacity: 0.01;
+  }
+}
+
+.notification--cnt{
+  .ntf-slide-enter{
+    transform: translate(-460px, 0);
+  }
+  .ntf-slide-enter.ntf-slide-enter-active{
+    transition: transform 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transform: translate(0, 0);
+  }
+  .ntf-slide-leave{
+    transition: transform 0.7s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    margin-left: -450px;
+    transform: translate(0, 0);
+  }
+  .ntf-slide-leave.ntf-slide-leave-active{
+    transform: translate(490px, 0);
   }
 }

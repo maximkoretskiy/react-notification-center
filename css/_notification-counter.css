@@ -1,9 +1,12 @@
 .notification-counter{
+  @mixin reset;
   $size: 48px;
   width: $size;
   height: $size;
   text-align: center;
   font-size: 12px;  
+  transition: background-color 0.3s;
+  cursor: pointer;
   &.__active,
   &:hover {
     background-color: #eee;
