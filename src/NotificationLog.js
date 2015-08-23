@@ -1,4 +1,5 @@
 import React from 'react';
+import Notification from './Notification';
 
 const propTypes = {
   iconTagImportant: React.PropTypes.element.isRequired,
@@ -20,26 +21,22 @@ class NotificationLog extends React.Component {
     }
   }
 
-  renderItem(i) {
+  renderNotification(notification) {
     return (
-      <div key={i.id} className="notification-log--item notification __type_log">
-        <div className="notification--wrap">
-          <div className="notification--left">
-            {this.props.iconTagImportant}
-          </div>
-          <div
-            className="notification--cnt"
-            dangerouslySetInnerHTML={{__html: i.text}}
-          />
-          <div className="notification--right">{i.date}</div>
-        </div>
-      </div>
+      <Notification
+        iconTagImportant = {this.props.iconTagImportant}
+        iconTagUnImportant = {this.props.iconTagUnImportant}
+        iconTagNext = {this.props.iconTagNext}
+        iconTagClose = {this.props.iconTagClose}
+        data={notification}
+        isSingle={false}
+      />
     );
   }
 
   render() {
     const items = this.props.items
-      .map(i => this.renderItem(i));
+      .map(i => this.renderNotification(i));
 
     if (this.props.viewAllButton) {
       items.push(

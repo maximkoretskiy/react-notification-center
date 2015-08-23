@@ -3,6 +3,7 @@ import {addons} from 'react/addons';
 import classNames from 'classnames';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
+import Notification from './Notification';
 import Icon from './Icon';
 
 const {CSSTransitionGroup} = addons;
@@ -49,53 +50,22 @@ const NotificationCenter = React.createClass({
     this.store.toggleLog(false);
   },
 
-  renderCloseIcon(notification) {
-    let iconTag;
-    if (notification.important && notification.count > 1) {
-      iconTag = (
-        <div className="notification--next">
-          {this.props.iconTagNext}
-          <div className="notification--count">{notification.count}</div>
-        </div>
-      );
-    }else {
-      iconTag = (
-        <div className="notification--close">
-          {this.props.iconTagClose}
-        </div>
-      );
-    }
-    return iconTag;
-  },
+  renderNotification(notification, isSingle=true) {
+    const isGrouped = notification.important && isSingle;
+    const key = (isGrouped) ? 'important' :  notification.id;
 
-  renderNotification(notification) {
-    const key = notification.important ? 'important' : notification.id;
-    const className = classNames({
-      notification: true,
-      __type_item: true,
-    });
     return (
-      <div key={key} className={className}>
-        <div className="notification--wrap">
-          <div className="notification--left">
-              {
-                notification.important ?
-                this.props.iconTagImportant :
-                this.props.iconTagUnImportant
-              }
-          </div>
-          <div
-            className="notification--cnt"
-            dangerouslySetInnerHTML={{__html: notification.text}}
-          />
-          <div
-            className="notification--right"
-            onClick={this.onClickComplete.bind(this, notification)}
-          >
-            {this.renderCloseIcon(notification)}
-          </div>
-        </div>
-      </div>
+      <Notification
+        key = {key}
+        iconTagImportant = {this.props.iconTagImportant}
+        iconTagUnImportant = {this.props.iconTagUnImportant}
+        iconTagNext = {this.props.iconTagNext}
+        iconTagClose = {this.props.iconTagClose}
+        data={notification}
+        isSingle={isSingle}
+        isAnimated={!!notification.count}
+        onClickComplete={this.onClickComplete.bind(this, notification)}
+      />
     );
   },
 
@@ -118,7 +88,7 @@ const NotificationCenter = React.createClass({
     } else {
       const importantItem = this.store.getImportantNotificationsGroup();
       if (importantItem) {
-        items.push(this.renderNotification(importantItem));
+        items.push(this.renderNotification(importantItem, true));
       }
     }
 
