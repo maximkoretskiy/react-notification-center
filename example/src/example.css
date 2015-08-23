@@ -23,6 +23,7 @@ body {
 	color: #333;
 	margin: 0;
 	padding: 0;
+  margin-bottom: 200px;
 }
 
 a {
@@ -57,10 +58,45 @@ a:hover {
   }
 }
 
+.form{
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: #FFF;
+  box-shadow: 0px 1px 5px 1px #aaa;
+  &--input{
+    width: 400px;
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+}
+
 .line{
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 940px;
+}
+
+.btn{
+  width: 200px;
+  color: #FFF;
+  font-size: 14px;
+  background-color: #F0514F;
+  -webkit-appearance: none;
+  border: none;
+  height: 40px;
+  -webkit-border-radius: 3px;
+  box-shadow: 0px 1px 5px 1px #aaa;
+  margin-left: 20px;
+  border-radius: 3px;
+  &:hover{
+    background-color: color(#F0514F b(1%));
+    box-shadow: 0px 1px 5px 2px #aaa;
+    
+  }
+
+
 }
 
 .footer {

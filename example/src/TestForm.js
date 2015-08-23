@@ -32,20 +32,33 @@ const TestForm = React.createClass({
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <input type="text"
-          value={this.state.text}
-          onChange={this.onTextChange}
-          placeholder="Введите текст сообщения"/>
+      <form
+        className="form"
+        onSubmit={this.onSubmit}
+      >
+        <div className="line">
+          <h1>Add your notification!</h1>
+          <input
+            className="form--input"
+            type="text"
+            value={this.state.text}
+            onChange={this.onTextChange}
+            placeholder="Place your notification text here"/>
+          <input
+            type="submit"
+            value="Add"
+            className="btn"
+            />
+          <br />
+          <label>
+            <input type="checkbox"
 
-        <label>
-          <input type="checkbox"
-            onChange={this.onCheckChange}
-            checked={this.state.important}
-          />
-          Важное
-        </label>
-        <input type="submit" value="Добавить"/>
+              onChange={this.onCheckChange}
+              checked={this.state.important}
+            />
+            Is important
+          </label>
+        </div>
       </form>
     );
   },
