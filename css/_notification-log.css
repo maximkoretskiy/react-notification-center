@@ -50,7 +50,7 @@
     text-transform: uppercase;
     text-align: center;
     padding: .5em;
-    cursor: pointer;   
+    cursor: pointer;
     font-size: 12px;
     color: $c-lines;
     background-color: $c-bg;

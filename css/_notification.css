@@ -36,7 +36,7 @@
     }
   }
   &--right{
-    width: 70px;    
+    width: 70px;
     fill: $c-lines;
     color: $c-lines;
   }

@@ -4,7 +4,7 @@
   width: $size;
   height: $size;
   text-align: center;
-  font-size: 12px;  
+  font-size: 12px;
   transition: background-color 0.3s;
   cursor: pointer;
   &.__active,
@@ -17,7 +17,7 @@
     &.__active,
     &:hover{
       background-color: color($c-cnt-red w(+ 10%));
-    }  
+    }
     .notification-counter--icon{
       margin-left: -5px;
     }
