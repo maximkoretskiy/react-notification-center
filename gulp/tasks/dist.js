@@ -8,6 +8,9 @@ var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
 var postcss = require('gulp-postcss');
+var sourcemaps = require('gulp-sourcemaps');
+var buffer = require('vinyl-buffer');
+var ignore = require('gulp-ignore');
 var postcssPlugs = {
 	autoprefixer: require('autoprefixer'),
 	stylelint: require('stylelint'),
@@ -38,11 +41,17 @@ module.exports = function (gulp, config) {
 		return standalone.bundle()
 			.on('error', function (e) {
 				gutil.log('Browserify Error', e);
-			})
-			.pipe(source(config.component.pkgName + '.js'))
-			.pipe(gulp.dest(config.component.dist))
-			.pipe(rename(config.component.pkgName + '.min.js'))
+			})            
+			.pipe(source(config.component.pkgName + '.js'))      
+      .pipe(buffer())
+      .pipe(sourcemaps.init())
+      .pipe(sourcemaps.write('.'))
+			.pipe(gulp.dest(config.component.dist))                
+      .pipe(ignore.exclude("*.map"))
+      .pipe(sourcemaps.init({loadMap: true}))			
 			.pipe(streamify(uglify()))
+      .pipe(rename(config.component.pkgName + '.min.js'))
+      .pipe(sourcemaps.write('.'))           
 			.pipe(gulp.dest(config.component.dist));
 	});
 
@@ -57,9 +66,11 @@ module.exports = function (gulp, config) {
 			postcssPlugs.autoprefixer({browsers: ['last 2 versions']}),
 			postcssPlugs.reporter({})
 		];
-		gulp.task('build:dist:css', ['clean:dist'], function () {
+		gulp.task('build:dist:css', ['clean:dist'], function () {      
 			return gulp.src(config.component.css.path + '/' + config.component.css.entry)
+        .pipe(sourcemaps.init())
 				.pipe(postcss(processors))
+        .pipe(sourcemaps.write('.'))
 				.pipe(gulp.dest('dist'));
 		});
 		buildTasks.push('build:dist:css');
