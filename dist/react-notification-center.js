@@ -1062,3 +1062,4 @@ module.exports = exports['default'];
 
 },{"events":1}]},{},[4])(4)
 });
+//# sourceMappingURL=react-notification-center.js.map
