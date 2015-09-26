@@ -7,18 +7,9 @@ var shim = require('browserify-shim');
 var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
 var uglify = require('gulp-uglify');
-var postcss = require('gulp-postcss');
 var sourcemaps = require('gulp-sourcemaps');
 var buffer = require('vinyl-buffer');
 var ignore = require('gulp-ignore');
-var postcssPlugs = {
-  autoprefixer: require('autoprefixer'),
-  stylelint: require('stylelint'),
-  precss: require('precss'),
-  reporter: require('postcss-reporter'),
-  colorFunction: require('postcss-color-function')
-}
-
 
 module.exports = function (gulp, config) {
   gulp.task('clean:dist', function (done) {
@@ -55,25 +46,8 @@ module.exports = function (gulp, config) {
       .pipe(gulp.dest(config.component.dist));
   });
 
-  var buildTasks = ['build:dist:scripts'];
-
-  if (config.component.css && config.component.css.entry) {
-    var processors = [
-      postcssPlugs.stylelint(),
-      postcssPlugs.colorFunction(),
-      postcssPlugs.precss(),
-      postcssPlugs.autoprefixer({browsers: ['last 2 versions']}),
-      postcssPlugs.reporter({})
-    ];
-    gulp.task('build:dist:css', ['clean:dist'], function () {
-      return gulp.src(config.component.css.path + '/' + config.component.css.entry)
-        .pipe(sourcemaps.init())
-        .pipe(postcss(processors))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('dist'));
-    });
-    buildTasks.push('build:dist:css');
-  }
-
-  gulp.task('build:dist', buildTasks);
+  gulp.task('build:dist', [
+    'build:dist:css',
+    'build:dist:scripts',
+  ]);
 };

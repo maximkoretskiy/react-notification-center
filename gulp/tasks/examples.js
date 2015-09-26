@@ -134,26 +134,6 @@ module.exports = function (gulp, config) {
 	});
 
 
-
-	gulp.task('build:example:css', function () {
-		if (!config.example.css) return;
-		var processors = [
-			postcssPlugs.reporter({
-        clearMessages: true,
-      })
-		];
-		return gulp.src(config.example.src + '/' + config.example.css)
-			.pipe(postcss([
-        postcssPlugs.stylelint(),
-        postcssPlugs.colorFunction(),
-        postcssPlugs.precss(),
-        postcssPlugs.autoprefixer({browsers: ['last 2 versions']}),
-        postcssPlugs.reporter({})
-			]))
-			.pipe(gulp.dest(config.example.dist))
-			.pipe(connect.reload());
-	});
-
 	gulp.task('build:examples', [
 		'build:example:files',
 		'build:example:css',

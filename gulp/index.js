@@ -49,6 +49,7 @@ require('./tasks/bump')(gulp, config);
 require('./tasks/dev')(gulp, config);
 require('./tasks/dist')(gulp, config);
 require('./tasks/release')(gulp, config);
+require('./tasks/_styles')(gulp, config);
 
 const buildTasks = ['build:dist'];
 const cleanTasks = ['clean:dist'];
