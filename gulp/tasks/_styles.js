@@ -17,6 +17,7 @@ export default (gulp, config) => {
     } = opts;
     if (!config.example.css) return ()=>{};
     return ()=> {
+      // TODO: require plugins inline
       const plugins = [
         stylelint(),
         colorFunction(),

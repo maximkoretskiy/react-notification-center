@@ -1,14 +1,14 @@
-var bump = require('gulp-bump');
+import bump from 'gulp-bump';
 
-module.exports = (gulp, config)=> {
-  function getBumpTask(type) {
-    return ()=> {
-      return gulp.src(['./package.json', './bower.json'])
-        .pipe(bump({ type: type }))
-        .pipe(gulp.dest('./'));
-    };
-  }
+function getBumpTask(type) {
+  return ()=> {
+    return gulp.src(['./package.json', './bower.json'])
+      .pipe(bump({type}))
+      .pipe(gulp.dest('./'));
+  };
+}
 
+export default (gulp, config)=> {
   gulp.task('bump', getBumpTask('patch'));
   gulp.task('bump:minor', getBumpTask('minor'));
   gulp.task('bump:major', getBumpTask('major'));

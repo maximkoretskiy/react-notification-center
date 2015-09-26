@@ -22,7 +22,6 @@
     "babel-plugin-object-assign": "^1.1.0",
     "babelify": "^6.1.0",
     "browserify": "^10.2.0",
-    "browserify-shim": "^3.8.6",
     "camelcase": "^1.1.0",
     "capitalize": "^1.0.0",
     "chalk": "^1.0.0",

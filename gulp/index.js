@@ -46,10 +46,40 @@ if (config.example) {
 }
 
 require('./tasks/bump')(gulp, config);
+/*
+  tasks:
+    bump
+    bump:minor
+    bump:major
+*/
 require('./tasks/dev')(gulp, config);
+/*
+  tasks: dev:server
+*/
 require('./tasks/dist')(gulp, config);
+/*
+  tasks:
+    build:dist:scripts
+    clean:dist
+*/
 require('./tasks/release')(gulp, config);
 require('./tasks/_styles')(gulp, config);
+
+gulp.task('dev', [
+  'dev:server',
+  'watch:examples',
+]);
+
+gulp.task('build:dist', [
+  'build:dist:css',
+  'build:dist:scripts',
+]);
+
+gulp.task('build:examples', [
+  'build:example:files',
+  'build:example:css',
+  'build:example:scripts',
+]);
 
 const buildTasks = ['build:dist'];
 const cleanTasks = ['clean:dist'];
@@ -62,6 +92,14 @@ if (config.component.lib) {
 
 if (config.example) {
   require('./tasks/examples')(gulp, config);
+  /*
+    tasks:
+      clean:examples
+      build:examples
+  		build:example:css
+      build:example:scripts
+      build:example:files
+  */
   buildTasks.push('build:examples');
   cleanTasks.push('clean:examples');
 }

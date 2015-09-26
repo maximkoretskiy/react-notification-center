@@ -1,36 +1,35 @@
-var babelify = require('babelify');
-var browserify = require('browserify');
-var del = require('del');
-var gutil = require('gulp-util');
-var rename = require('gulp-rename');
-var shim = require('browserify-shim');
-var source = require('vinyl-source-stream');
-var streamify = require('gulp-streamify');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var buffer = require('vinyl-buffer');
-var ignore = require('gulp-ignore');
+import babelify     from 'babelify';
+import browserify   from 'browserify';
+import del          from 'del';
+import gutil        from 'gulp-util';
+import rename       from 'gulp-rename';
+import shim         from 'browserify-shim';
+import source       from 'vinyl-source-stream';
+import streamify    from 'gulp-streamify';
+import uglify       from 'gulp-uglify';
+import sourcemaps   from 'gulp-sourcemaps';
+import buffer       from 'vinyl-buffer';
+import ignore       from 'gulp-ignore';
 
-module.exports = function (gulp, config) {
-  gulp.task('clean:dist', function (done) {
+export default (gulp, config) => {
+  gulp.task('clean:dist', (done) => {
     del([config.component.dist], done);
   });
 
-  gulp.task('build:dist:scripts', function () {
-    var standalone = browserify('./' + config.component.src + '/' + config.component.file, {
-      standalone: config.component.name
+  gulp.task('build:dist:scripts', () => {
+    const componentSource = `${config.component.src}/${config.component.file}`;
+    const standalone = browserify(componentSource, {
+      standalone: config.component.name,
     })
     .transform(babelify.configure({
-      plugins: [require('babel-plugin-object-assign')]
+      plugins: [require('babel-plugin-object-assign')],
     }))
     .transform(shim);
 
-    config.component.dependencies.forEach(function (pkg) {
-      standalone.exclude(pkg);
-    });
+    config.component.dependencies.forEach((pkg) => standalone.exclude(pkg));
 
     return standalone.bundle()
-      .on('error', function (e) {
+      .on('error', (e) => {
         gutil.log('Browserify Error', e);
       })
       .pipe(source(config.component.pkgName + '.js'))
@@ -38,16 +37,13 @@ module.exports = function (gulp, config) {
       .pipe(sourcemaps.init())
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(config.component.dist))
-      .pipe(ignore.exclude("*.map"))
-      .pipe(sourcemaps.init({loadMap: true}))
+      .pipe(ignore.exclude('*.map'))
+      .pipe(sourcemaps.init({
+        loadMap: true,
+      }))
       .pipe(streamify(uglify()))
       .pipe(rename(config.component.pkgName + '.min.js'))
       .pipe(sourcemaps.write('.'))
       .pipe(gulp.dest(config.component.dist));
   });
-
-  gulp.task('build:dist', [
-    'build:dist:css',
-    'build:dist:scripts',
-  ]);
 };
