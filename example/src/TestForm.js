@@ -1,10 +1,10 @@
 import React from 'react';
 
-const propTypes = {
-  onSubmit: React.PropTypes.func.isRequired,
-};
-
 const TestForm = React.createClass({
+  propTypes: {
+    onSubmit: React.PropTypes.func.isRequired,
+  },
+
   getInitialState() {
     return {
       important: true,
@@ -63,7 +63,5 @@ const TestForm = React.createClass({
     );
   },
 });
-
-TestForm.propTypes = propTypes;
 
 export default TestForm;

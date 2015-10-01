@@ -1,6 +1,5 @@
 import React from 'react';
 import {addons} from 'react/addons';
-import classNames from 'classnames';
 import NotificationListenMixin from './NotificationListenMixin';
 import NotificationLog from './NotificationLog';
 import Notification from './Notification';
@@ -50,7 +49,7 @@ const NotificationCenter = React.createClass({
     this.store.toggleLog(false);
   },
 
-  renderNotification(notification, isSingle=true) {
+  renderNotification(notification, isSingle = true) {
     const isGrouped = notification.important && isSingle;
     const key = (isGrouped) ? 'important' :  notification.id;
 
