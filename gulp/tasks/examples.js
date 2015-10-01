@@ -21,6 +21,7 @@ export default (gulp, config) => {
   function watchBundle(bundle, name, dest) {
     return watchify(bundle)
       .on('update', (updatedScripts) => {
+        gulp.start('lint:dev');
         const decoratedScriptList =
           updatedScripts
           .filter(  (file) => file.substr(0, 2) !== './' )

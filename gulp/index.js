@@ -64,10 +64,12 @@ require('./tasks/dist')(gulp, config);
 */
 require('./tasks/release')(gulp, config);
 require('./tasks/_styles')(gulp, config);
+require('./tasks/_lint')(gulp, config);
 
 gulp.task('dev', [
   'dev:server',
   'watch:examples',
+  'lint:dev',
 ]);
 
 gulp.task('build:dist', [

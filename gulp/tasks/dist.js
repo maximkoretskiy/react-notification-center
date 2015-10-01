@@ -16,7 +16,7 @@ export default (gulp, config) => {
     del([config.component.dist], done);
   });
 
-  gulp.task('build:dist:scripts', () => {
+  gulp.task('build:dist:scripts', ['lint:strict'],  () => {
     const componentSource = `${config.component.src}/${config.component.file}`;
     const standalone = browserify(componentSource, {
       standalone: config.component.name,
